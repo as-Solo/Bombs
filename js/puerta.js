@@ -7,4 +7,6 @@ class Muro{
         this.isOpen = false;
         this.bonusType = "tipo de Bonus"
     }
+
+    open(){}
 }
