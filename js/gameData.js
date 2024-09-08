@@ -6,6 +6,7 @@ class GameData{
         this.gameScreen = document.querySelector("#game");
         this.gameBoard = document.querySelector("#game-board");
         this.gameEndScreen = document.querySelector("#ranking");
+        this.numBombs = document.querySelector("#bombas span");
         this.width = 1100;
         this.height = 750;
         this.numEnemies = 1;
@@ -214,6 +215,7 @@ class GameData{
     }
     update(){
         // this.checkPosition();
+        this.numBombs.innerText = this.player.numBombs - this.player.bombasPuestas.length
         this.bombList();
         this.checkCollisions();
         this.player.move();
