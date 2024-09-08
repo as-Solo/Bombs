@@ -1,3 +1,5 @@
+// Solo 06/09/2024
+
 class Enemy{
     constructor(){
         this.x = 50;

@@ -1,4 +1,4 @@
-class Muro{
+class Puerta{
     constructor(x, y){
         this.x = x;
         this.y = y;

@@ -1,0 +1,59 @@
+<!-- Solo 06/09/2024 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOOMBS!!</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="inicio">
+            <form id="enter-name">
+                <label for="nombre">Name:</label>
+                <input type="text" value = "" name="nombre" placeholder="Your name" >
+                <button id="start-button" type="button">Start Game</button>
+            </form>
+        </div>
+        <div id="game">
+            <div id="datos">
+                <div id="crono">
+                    <div class="panel minutos">05</div>
+                    <p>:</p>
+                    <div class="panel segundos">42</div>
+                </div>
+                <div id="info">
+                    <div class="info-panel">
+                        <p>Velocidad:</p>
+                        <p id="speed">1</p>
+                    </div>
+                    <div class="info-panel">
+                        <p>Vidas:</p>
+                        <p id="vidas">3</p>
+                    </div>
+                    <div class="info-panel">
+                        <p><span>Bombas:</span></p>
+                        <p id="bombas"><span>3</span></p>
+                    </div>
+                </div>
+            </div>
+            <div id="game-board"></div>
+        </div>
+        <div id="ranking">
+            <button id="restart-button">Restart Game</button>
+        </div>
+    </div>
+    <script src="./js/bomba.js"></script>
+    <script src="./js/bomberman.js"></script>
+    <script src="./js/crono.js"></script>
+    <script src="./js/enemigo.js"></script>
+    <script src="./js/gameData.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/muro.js"></script>
+    <script src="./js/puerta.js"></script>
+    <script src="./js/explosion.js"></script>
+    <script src="./js/ladrillo.js"></script>
+</body>
+</html>

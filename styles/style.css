@@ -1,0 +1,201 @@
+/* Cosas chulis y bonitas por Solo 06/09/2024 */
+@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: solid 1px red; */
+}
+#container{
+    /* border: solid 1px green; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 98vh;
+}
+
+#inicio{
+    display: flex;
+    position: relative;
+    /* border: solid 1px green; */
+    width: 1100px;
+    height: 750px;
+    background-image: url("../images/Inicio_provisional.jpg");
+    background-size: cover;
+}
+
+#enter-name{
+    font-family: "Press Start 2P";
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    height: 240px;
+    /* border: solid 1px rgb(55, 0, 117); */
+    padding: 30px;
+    position: absolute;
+    bottom: 0;
+    font-size: 1.8rem;
+    color:  rgb(76, 75, 141);
+    font-weight: 50;
+}
+
+#enter-name input{
+    font-family: "Press Start 2P";
+    border: none;
+    text-align: center;
+    color: rgb(77, 47, 133);
+    height: 45px;
+    width: 350px;
+    border-bottom: 3px solid rgb(76, 75, 141);
+    border-right: 1px solid rgb(76, 75, 141);
+    /* border-left: 1px solid rgb(76, 75, 141); */
+    border-radius: 4px;
+}
+
+#enter-name button{
+    font-size: 1.3rem;
+    font-family: "Press Start 2P";
+    border: solid 2px  rgb(119, 121, 172);
+    background-color:  rgb(76, 75, 141);
+    text-align: center;
+    color: rgb(119, 121, 172);
+    height: 65px;
+    width: 350px;
+    border-radius: 7px;
+
+}
+
+#enter-name input:focus{
+    font-family: "Press Start 2P";
+    border: rgb(76, 75, 141) 2px solid;
+    outline: none;
+ 
+
+}
+
+#enter-name button:hover{
+    border: solid 4px  rgb(119, 121, 172);
+    background-color:  rgb(50, 49, 107);
+    color: rgb(119, 121, 172);
+    font-size: 1.4rem;
+}
+
+#ranking{
+    display: none;
+    position: relative;
+    /* border: solid 1px green;  */
+    width: 1100px;
+    height: 750px;
+    background-image: url("../sketches/Ranking.jpg");
+    background-size: cover;
+}
+
+#ranking button{
+    font-size: 1.3rem;
+    font-family: "Press Start 2P";
+    border: solid 4px  rgb(151 59 84);
+    background-color:  rgb(223 114 155);
+    text-align: center;
+    color: rgb(151 59 84);
+    height: 65px;
+    width: 350px;
+    border-radius: 7px;
+    position: absolute;
+    bottom: 45px;
+    right: 50px;
+}
+
+#ranking button:hover{
+    border: solid 5px rgb(151 59 84);
+    /* background-color:  rgb(50, 49, 107); */
+    text-shadow: 1px 1px 2px rgba(242, 255, 60, 0.877);
+    font-size: 1.4rem;
+}
+
+/*
+Rosa oscuro 151 59 84
+Rosa claro 223 114 155
+ */
+
+
+ #game{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    /* border: solid 1px green; */
+    width: 1100px;
+    height: 750px;
+}
+
+#datos{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 850px;
+    /* border: solid 1px rgb(0, 26, 255); */
+    height: 170px;
+    border-radius: 15px;
+    
+}
+
+#game-board{
+    position: relative;
+    width: 850px;
+    height: 550px;
+    border: solid 3px rgb(0, 0, 0);
+    border-radius: 15px;
+    background-color: green;
+    overflow: hidden;
+}
+
+#crono{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Press Start 2P";
+    font-size: 2rem;
+    color: rgb(151 59 84);
+}
+
+.panel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(151 59 84);
+    width: 100px;
+    height: 100px;
+    font-family: "Press Start 2P";
+    color: white;
+    font-size: 2.5rem;
+    border-radius: 8px;
+}
+
+#info{
+    display: flex;
+    width: 470px;
+    justify-content: space-between;
+}
+
+.info-panel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(223 114 155);
+    color: white;
+    font-family: "Press Start 2P";
+    height: 25px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: .9em;
+}
+
+.info-panel span{
+    color: rgb(151 59 84);
+}
