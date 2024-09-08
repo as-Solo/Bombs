@@ -56,6 +56,8 @@ window.onload = function () {
                 // game.player.ajustarLeft()
                 let explosion = new Explosion(game.gameBoard, 150, 100);
                 // console.log(explosion)
+                console.log(game.player.bombasPuestas[0])
+                console.log(game.muros)
                 break;
             }
         }

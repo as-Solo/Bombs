@@ -8,7 +8,7 @@ class Bomba{
         this.w = 50;
         this.h = 50;
         this.sprite = ["./images/bomba/bomba_01.png", "./images/bomba/bomba_02.png", "./images/bomba/bomba_03.png", "./images/bomba/bomba_04.png"];
-        this.spriteExCenter = ["./images/explosion/ex_01.png", "./images/explosion/ex_02.png", "./images/explosion/ex_03.png", "./images/explosion/ex_04.png", "./images/explosion/ex_05.png", "./images/explosion/ex_06.png", "./images/explosion/ex_07.png", "./images/explosion/ex_08.png", "./images/explosion/ex_09.png", "./images/explosion/ex_10.png", "./images/explosion/ex_11.png", "./images/explosion/ex_12.png", "./images/explosion/ex_13.png", "./images/explosion/ex_14.png"];
+        this.spriteExCenter = ["./images/explosion/ex_01.png", "./images/explosion/ex_02.png", "./images/explosion/ex_03.png", "./images/explosion/ex_04.png", "./images/explosion/ex_05.png", "./images/explosion/ex_06.png", "./images/explosion/ex_07.png", "./images/explosion/ex_08.png", "./images/explosion/ex_09.png", "./images/explosion/ex_10.png", "./images/explosion/ex_11.png", "./images/explosion/ex_12.png", "./images/explosion/ex_13.png", "./images/explosion/ex_14.png", "./images/explosion/ex_15.png", "./images/explosion/ex_16.png", "./images/explosion/ex_17.png", "./images/explosion/ex_18.png", "./images/explosion/ex_19.png"];
         this.distancia = distancia;
         this.atraviesa = demolition;
         this.explotar = false;
@@ -47,44 +47,47 @@ class Bomba{
     }
 
     boom(){
+        if (this.llamaLeft){
+            let llamaLeft = new Explosion(this.screen, this.left - 50, this.top, "left");
+            this.llamas.push(llamaLeft)
+        }
+        if (this.llamaRight){
+            let llamaRight = new Explosion(this.screen, this.left + 50, this.top, "right");
+            this.llamas.push(llamaRight)
+        }
+        if (this.llamaTop){
+            let llamaTop = new Explosion(this.screen, this.left, this.top  - 50, "top");
+            this.llamas.push(llamaTop)
+        }
+        if (this.llamaBottom){
+            let llamaBottom = new Explosion(this.screen, this.left, this.top  + 50, "bottom");
+            this.llamas.push(llamaBottom)
+        }
         let sec = 0
         const bombId = setInterval(()=>{
-            this.element.src = this.spriteExCenter[sec % 8];
+            this.element.src = this.spriteExCenter[sec];
             sec++;
-            if (sec >= 8){
+            if (sec >= 19){
+                this.element.style.display = "none"
+                this.llamas.forEach((llama)=>{
+                    llama.element.remove()
+                })
                 clearInterval(bombId);
-                const bombId2 = setInterval(()=>{
-                    if (sec % 2 === 0){
-                        this.element.src = this.spriteExCenter[7];
-                    }
-                    else{
-                        this.element.src = this.spriteExCenter[8];
-                    }
-                    sec++;
-                    if (sec >= 18){
-                        clearInterval(bombId2);
-                        const bombId3 = setInterval(()=>{
-                            this.element.src = this.spriteExCenter[8 + sec % 6];
-                            sec++;
-                            if (sec >= 24){
-                                this.element.style.display = "none"
-                                clearInterval(bombId3);
-                            }
-                        }, 70)
-                    }
-                }, 70)
             }
-        }, 70)
-
+        }, 70)    
     }
 
     didCollide(left, right, top, bottom, obstacle){
         const playerRect = this.element.getBoundingClientRect();
         const obstacleRect = obstacle.getBoundingClientRect();
-
-        if (playerRect.left + left < obstacleRect.right &&
+       
+        // console.log(left);
+    
+        // console.log("Obstacle Rect:", obstacleRect);
+        
+        if (playerRect.left - left < obstacleRect.right &&
             playerRect.right + right > obstacleRect.left &&
-            playerRect.top + top < obstacleRect.bottom &&
+            playerRect.top - top < obstacleRect.bottom &&
             playerRect.bottom + bottom > obstacleRect.top){
             return true;
         }

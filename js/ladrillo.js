@@ -9,7 +9,7 @@ class Ladrillo{
         this.screen = screen;
 
         this.element = document.createElement("img")
-        this.element.src = "./images/muro.png"
+        this.element.src = "./images/ladrillo.png"
         this.element.style.position = "absolute"
         this.element.style.top = `${this.top}px`;
         this.element.style.left = `${this.left}px`;

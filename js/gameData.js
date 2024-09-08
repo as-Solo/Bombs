@@ -67,7 +67,7 @@ class GameData{
     }
 
     checkCollisions(){
-        for (let i = 0; i < this.muros.length; i++) {
+        for (let i = this.muros.length - 1; i >= 0 ; i--) {
            
             // bloquear la direccion en caso de fufura colision
             const obstacle = this.muros[i];
@@ -116,21 +116,56 @@ class GameData{
 
             // ver si las llamas de las bombas colisionan
             this.player.bombasPuestas.forEach((bomba)=>{
-                ((obstacle)=>{
-                    console.log(obstacle instanceof Ladrillo)
+                ((obstacle, i)=>{
+                    // console.log(obstacle instanceof Ladrillo)
                     if ((obstacle instanceof Muro) && (bomba.didCollide(50, 0, 0, 0, obstacle.element))){
                         bomba.llamaLeft = false;
+                        // console.log("left")
                     }
-                    if (obstacle instanceof Muro && bomba.didCollide(0, 50, 0, 0, obstacle.element)){
+                    else if((obstacle instanceof Ladrillo) && (bomba.didCollide(50, 0, 0, 0, obstacle.element))){
+                        const del = i;
+                        this.muros.splice(del, 1)
+                        setTimeout(()=>{
+                            obstacle.element.style.display = "none"
+                        }, 3500)
+                    }
+                    if ((obstacle instanceof Muro) && (bomba.didCollide(0, 50, 0, 0, obstacle.element))){
                         bomba.llamaRight = false;
+                        // console.log("right")
+
                     }
-                    if (obstacle instanceof Muro && bomba.didCollide(0, 0, 50, 0, obstacle.element)){
+                    else if((obstacle instanceof Ladrillo) && (bomba.didCollide(0, 50, 0, 0, obstacle.element))){
+                        const del = i;
+                        this.muros.splice(del, 1)
+                        setTimeout(()=>{
+                            obstacle.element.style.display = "none"
+                        }, 3500)
+                    }
+                    if ((obstacle instanceof Muro) && (bomba.didCollide(0, 0, 50, 0, obstacle.element))){
                         bomba.llamaTop = false;
+                        // console.log("top")
+
                     }
-                    if (obstacle instanceof Muro && bomba.didCollide(0, 0, 0, 50, obstacle.element)){
+                    else if((obstacle instanceof Ladrillo) && (bomba.didCollide(0, 0, 50, 0, obstacle.element))){
+                        const del = i;
+                        this.muros.splice(del, 1)
+                        setTimeout(()=>{
+                            obstacle.element.style.display = "none"
+                        }, 3500)
+                    }
+                    if ((obstacle instanceof Muro) && (bomba.didCollide(0, 0, 0, 50, obstacle.element))){
                         bomba.llamaBottom = false;
+                        // console.log("bottom")
+
                     }
-                })(obstacle)
+                    else if((obstacle instanceof Ladrillo) && (bomba.didCollide(0, 0, 0, 50, obstacle.element))){
+                        const del = i;
+                        this.muros.splice(del, 1)
+                        setTimeout(()=>{
+                            obstacle.element.style.display = "none"
+                        }, 3500)
+                    }
+                })(obstacle, i)
             })
         }
     }
@@ -168,7 +203,11 @@ class GameData{
             for (let i = this.player.bombasPuestas.length - 1; i >= 0; i--){
                 if (this.player.bombasPuestas[i].explotar){
                     this.player.bombasPuestas[i].boom()
+                    const deleteBomb = this.player.bombasPuestas[i].element;
                     this.player.bombasPuestas.splice(i, 1);
+                    setTimeout(()=>{
+                        deleteBomb.remove()
+                    }, 4000)
                 }
             }
         }
