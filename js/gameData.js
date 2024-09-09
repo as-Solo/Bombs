@@ -11,6 +11,7 @@ class GameData{
         this.numVidas = document.querySelector("#vidas");
         this.minutos = document.querySelector("#crono .minutos");
         this.segundos = document.querySelector("#crono .segundos");
+        this.gameOverScreen = document.querySelector("#game-over");
         this.width = 1100;
         this.height = 750;
         this.numEnemies = 0;
@@ -37,7 +38,7 @@ class GameData{
         ]
         this.elementosColisionables = [];
 
-        this.tiempo = 342;
+        this.tiempo = 3; //342
         this.scores = 0
         this.lives = 3;
         this.gameIsOver = false;
@@ -284,6 +285,19 @@ class GameData{
         this.update();
         if (this.gameIsOver) {
             clearInterval(this.gameIntervalId)
+           this.gameOverScreen.classList.toggle("show")
+           setTimeout(()=>{
+               this.gameEndScreen.style.display = "flex"
+               this.gameScreen.style.display = "none"
+           }, 4000)
+        //    let step = 0;
+        //    let opacityId =setInterval(() => {
+        //         this.gameEndScreen.style.opacity = step;
+        //         step += .01;
+        //         if (step >= 1){
+        //             clearInterval(opacityId);
+        //         }
+        //    }, 80);
         }
     };
 
@@ -339,6 +353,9 @@ class GameData{
             enemy.move();
         })
         this.player.move();
+        if (this.crono.time <=0){
+            this.gameIsOver = true
+        }
     };
 }
 
