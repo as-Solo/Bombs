@@ -7,7 +7,11 @@ class Bomberman{
         this.top = top;
         this.w = 50;
         this.h = 50;
-        this.isColide = false;
+        // this.isColide = false; //deprecated
+        this.canMoveLeft = true;
+        this.canMoveRight = true;
+        this.canMoveUp = true;
+        this.canMoveDown = true;
         
         this.element =document.createElement("img");
         this.element.src = imgSrc;
@@ -21,8 +25,9 @@ class Bomberman{
         
         this.leftDirection = 0;
         this.topDirection = 0;
-        this.speedBonus = 10;
-        this.speed = Math.round(50 / this.speedBonus);
+        this.speedBonus = 1;
+        this.speedDistance = 10
+        this.speed = Math.round(50 / (this.speedDistance - this.speedBonus));
         this.vidas = 3;
         this.numBombs = 3;
         this.distancia = 1;
