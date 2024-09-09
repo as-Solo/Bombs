@@ -54,10 +54,13 @@ window.onload = function () {
                 break;
             case "q":
                 // game.player.ajustarLeft()
-                let explosion = new Explosion(game.gameBoard, 150, 100);
+                // let explosion = new Explosion(game.gameBoard, 150, 100);
                 // console.log(explosion)
-                console.log(game.player.bombasPuestas[0])
-                console.log(game.muros)
+                console.log(game.player.bombasPuestas[0].isRemovable)
+                console.log(game.player.bombasPuestas[0].explotar)
+                // console.log(game.enemies)
+                // console.log(game.indexMurosDel)
+                // console.log(game.muros)
                 break;
             }
         }

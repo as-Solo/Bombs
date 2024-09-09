@@ -11,7 +11,7 @@ class Enemy{
         this.topDirection = topDirection;
         this.speedBonus = 1;
         this.speedDistance = 30
-        this.speed = Math.round(50 / (this.speedDistance - this.speedBonus));
+        this.speed = Math.floor(50 / (this.speedDistance - this.speedBonus));
         this.isAlive = true;
 
         this.path = "./images/enemy/bottom/"
@@ -55,12 +55,9 @@ class Enemy{
         }, 200)
     }
     move(){
-        this.movementId = setInterval(()=>{
-            this.left += this.speed * this.leftDirection;
-            this.top += this.speed * this.topDirection;
-            this.updatePosition();
-        }, 1000/60)
-        // console.log("alto  " + this.top)
+        this.left += this.speed * this.leftDirection;
+        this.top += this.speed * this.topDirection;
+        this.updatePosition();
     };
     updatePosition(){
         this.element.style.left = `${this.left}px`;
@@ -84,10 +81,10 @@ class Enemy{
     willCollide(obstacle, leftDirection, topDirection){
         const playerRect = this.element.getBoundingClientRect();
         const obstacleRect = obstacle.getBoundingClientRect();
-        if (playerRect.left + (this.speed * leftDirection) < obstacleRect.right &&
-            playerRect.right + (this.speed * leftDirection) > obstacleRect.left &&
-            playerRect.top + (this.speed * topDirection) < obstacleRect.bottom &&
-            playerRect.bottom + (this.speed * topDirection) > obstacleRect.top){
+        if (Math.floor(playerRect.left + (this.speed * leftDirection)) < Math.floor(obstacleRect.right) &&
+            Math.floor(playerRect.right + (this.speed * leftDirection)) > Math.floor(obstacleRect.left) &&
+            Math.floor(playerRect.top + (this.speed * topDirection)) < Math.floor(obstacleRect.bottom) &&
+            Math.floor(playerRect.bottom + (this.speed * topDirection)) > Math.floor(obstacleRect.top)){
             return true;
         }
         else {
@@ -99,14 +96,14 @@ class Enemy{
         let resultado = this.top;
         let decenas = this.top % 100
 
-        if (decenas < 30){
+        if (decenas < 40){
             resultado = (this.top - decenas)
         }
 
         else if (decenas >= 40 && decenas <= 65){
             resultado = (this.top - decenas + 50)
         }
-        else if (decenas > 70){
+        else if (decenas > 65){
             resultado = (this.top - decenas + 100)
         }
         if (resultado <= 50){
@@ -139,6 +136,16 @@ class Enemy{
             resultado = this.screen.offsetWidth;
         }
         this.left = resultado;
+    }
+
+    dies(){
+        this.topDirection = 0;
+        this.leftDirection = 0;
+        this.path = "./images/enemy/die/"
+        setTimeout(()=>{
+            this.element.style.display = "none"
+            this.element.remove();
+        },1200)
     }
     // moveRigth(){};
     // moveLeft(){};

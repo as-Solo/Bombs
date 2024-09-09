@@ -12,7 +12,10 @@ class Bomba{
         this.distancia = distancia;
         this.atraviesa = demolition;
         this.explotar = false;
-        this.isCollide = false
+
+        this.isCollide = false;
+
+        this.isRemovable = false;
 
         this.llamaLeft = true;
         this.llamaRight = true;
@@ -41,7 +44,7 @@ class Bomba{
             if (sec >= 12){
                 this.explotar = true;
                 clearInterval(bombId);
-                // this.boom();
+                this.boom();
             }
         }, 250)
     }
@@ -72,19 +75,16 @@ class Bomba{
                 this.llamas.forEach((llama)=>{
                     llama.element.remove()
                 })
+                this.isRemovable = true; 
                 clearInterval(bombId);
             }
-        }, 70)    
+        }, 70)
     }
 
     didCollide(left, right, top, bottom, obstacle){
         const playerRect = this.element.getBoundingClientRect();
         const obstacleRect = obstacle.getBoundingClientRect();
        
-        // console.log(left);
-    
-        // console.log("Obstacle Rect:", obstacleRect);
-        
         if (playerRect.left - left < obstacleRect.right &&
             playerRect.right + right > obstacleRect.left &&
             playerRect.top - top < obstacleRect.bottom &&

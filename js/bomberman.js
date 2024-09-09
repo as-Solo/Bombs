@@ -28,7 +28,10 @@ class Bomberman{
         this.speedBonus = 1;
         this.speedDistance = 10
         this.speed = Math.round(50 / (this.speedDistance - this.speedBonus));
+        
         this.vidas = 3;
+        this.inmune = false;
+
         this.numBombs = 3;
         this.distancia = 1;
         this.demolition = false;
