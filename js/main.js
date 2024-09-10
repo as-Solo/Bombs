@@ -60,12 +60,12 @@ window.onload = function () {
                 // game.player.ajustarLeft()
                 // let explosion = new Explosion(game.gameBoard, 150, 100);
                 // console.log(explosion)
-                console.log(game.player.bombasPuestas[0].isCollide)
+                // console.log(game.player.bombasPuestas[0].isCollide)
                 // console.log(game.player.bombasPuestas[0].isRemovable)
                 // console.log(game.player.bombasPuestas[0].explotar)
                 // console.log(game.enemies)
                 // console.log(game.indexMurosDel)
-                // console.log(game.muros)
+                console.log(game.muros)
                 // console.log(game.player)
                 break;
             }

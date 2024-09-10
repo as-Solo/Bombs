@@ -13,11 +13,32 @@ class GameData{
         this.segundos = document.querySelector("#crono .segundos");
         this.gameOverScreen = document.querySelector("#game-over");
         this.nextLevelScreen = document.querySelector("#next-level");
+        this.textoBombas = document.querySelector("#bombas-usadas");
+        this.textoTime = document.querySelector("#tiempo-total");
+        this.textoMuertos = document.querySelector("#enemigos-eliminados");
+        this.textoKillScore = document.querySelector("#kill-score");
+        this.textoKillScoreSum = document.querySelector("#kill-score-sum");
+        this.textoTitleScore = document.querySelector("#tittle-score");
+        this.textoTitleScoreSum = document.querySelector("#tittle-score-sum");
+        this.textoTimeScore = document.querySelector("#time-score");
+        this.textoTimeScoreSum = document.querySelector("#time-score-sum");
+        this.textoTotalScore = document.querySelector("#total-score");
+        
+        this.enemiesKill = 0;
+        this.bombsUsed = 0;
+        this.pointsEchKill = 300;
+        this.pointsTime = 0;
+        this.titlePoints = 550;
+        this.wallDestroyed = 0;
+        //tiempo de game - tiempo transcurrido de crono * 150
+        // ya pensaremos algo para el numero de bombas, los titulos y sus puntuaciones
+        //[piromano, francotirador, activista, manco]
+
         this.width = 1100;
         this.height = 750;
-        this.numEnemies = 0;
         // this.enemiesPos = [['x', 'y']]; //deprecated
         // this.puerta = ['x', 'y']; // deprecated
+        this.numEnemies = 0;
         this.enemies = [];
         this.indexEnemiesDel = new Set();
 
@@ -26,21 +47,21 @@ class GameData{
 
         this.map = [
             '11111111111111111',
-            '10000000000000001',
+            '100000100000000e1',
             '10101210101010101',
             '10002020000000001',
             '10101010101010101',
-            '10002000S00000001',
+            '10002010S00000001',
             '10101010101010101',
-            '10002000000000001',
+            '10002010000000001',
             '10101010101010101',
-            '1e000000000000001',
+            '1e00000000000e001',
             '11111111111111111',
         ]
         this.elementosColisionables = [];
 
         this.tiempo = 342; //342
-        this.scores = 0
+        // this.scores = 0 // deprecated
         this.lives = 3;
 
         this.gameIsOver = false;
@@ -258,14 +279,14 @@ class GameData{
                     // ---------------------- COLISIONES CON ENEMIGOS Y BOMBAS PUESTAS ---------------------
                     if (bomba.isCollide && enemigo.willCollide(bomba.element, -1, 0)) {
                         enemigo.canMoveLeft = false;
-                        console.log("colisiono", enemigo.canMoveLeft)
+                        // console.log("colisiono", enemigo.canMoveLeft)
                     }
                     else{
                         enemigo.canMoveLeft = true
                     }
                     if (bomba.isCollide && enemigo.willCollide(bomba.element, 1, 0)) {
                         enemigo.canMoveRight = false;
-                        console.log("colisiono", enemigo.canMoveRight)
+                        // console.log("colisiono", enemigo.canMoveRight)
                         
                     }
                     else{
@@ -273,7 +294,7 @@ class GameData{
                     }
                     if (bomba.isCollide && enemigo.willCollide(bomba.element, 0, -1)) {
                         enemigo.canMoveUp = false;
-                        console.log("colisiono", enemigo.canMoveUp)
+                        // console.log("colisiono", enemigo.canMoveUp)
 
                     }
                     else{
@@ -281,7 +302,7 @@ class GameData{
                     }
                     if (bomba.isCollide && enemigo.willCollide(bomba.element, 0, 1)) {
                         enemigo.canMoveDown = false;
-                        console.log("colisiono  ", enemigo.canMoveDown)
+                        // console.log("colisiono  ", enemigo.canMoveDown)
 
                     }
                     else{
@@ -378,6 +399,8 @@ class GameData{
     gameLoop(){
         this.update();
         if (this.gameIsOver) {
+            this.updateScores()
+            this.removeWalls();
             clearInterval(this.gameIntervalId)
             this.gameOverScreen.classList.toggle("show")
             setTimeout(()=>{
@@ -386,6 +409,8 @@ class GameData{
             }, 4000)
         }
         if (this.nextStage){
+            this.updateScores()
+            this.removeWalls()
             clearInterval(this.gameIntervalId)
             this.nextLevelScreen.classList.toggle("show")
             setTimeout(()=>{
@@ -402,8 +427,9 @@ class GameData{
                 if (this.player.bombasPuestas[i].isRemovable){
                     const deleteBomb = this.player.bombasPuestas[i].element;
                     this.player.bombasPuestas.splice(i, 1);
+                    this.bombsUsed++;
                     setTimeout(()=>{
-                        deleteBomb.remove()
+                        deleteBomb.remove();
                     }, 4000)
                 }
             }
@@ -415,6 +441,7 @@ class GameData{
             for (let index of this.indexMurosDel){
                 // console.log(index)
                 this.muros.splice(index, 1)
+                this.wallDestroyed++;
             }
             this.indexMurosDel.clear();
         }
@@ -426,6 +453,7 @@ class GameData{
                 // console.log(index)
                 this.enemies.splice(index, 1)
                 this.numEnemies--;
+                this.enemiesKill++;
             }
             this.indexEnemiesDel.clear();
             if (this.enemies.length === 0){
@@ -442,7 +470,7 @@ class GameData{
         this.segundos.innerText = this.crono.seconds
         this.numBombs.innerText = this.player.numBombs - this.player.bombasPuestas.length
         if (this.puerta){
-            console.log(this.numEnemies);
+            // console.log(this.numEnemies);
             if(this.numEnemies === 0){
                 this.puerta.isOpen = true
             }
@@ -452,6 +480,7 @@ class GameData{
         }
         this.bombList();
         this.removeEnemies();
+        // this.removeWalls();
         this.checkCollisionsWalls();
         this.enemies.forEach((enemy)=>{
             enemy.move();
@@ -465,5 +494,19 @@ class GameData{
             this.gameIsOver = true
         }
     };
+
+    updateScores(){
+        this.textoBombas.innerText = this.bombsUsed;
+        this.textoMuertos.innerText = this.enemiesKill;
+        this.textoTime.innerText = `${this.crono.minutesT}:${this.crono.secondsT}`;
+        this.textoKillScore.innerText = `${this.enemiesKill} x ${this.pointsEchKill}`;
+        this.textoKillScoreSum.innerText = `${this.enemiesKill * this.pointsEchKill}pts.`;
+        this.pointsTime = ((this.tiempo - this.crono.transcurrido) * 20)
+        this.textoTimeScore.innerText = `${this.crono.minutes}:${this.crono.seconds}`;
+        this.textoTimeScoreSum.innerText = `${this.pointsTime}pts.`;
+        this.textoTitleScore.innerText = `'piromano'`;
+        this.textoTitleScoreSum.innerText = `${this.titlePoints}pts.`;
+        this.textoTotalScore.innerText = `${this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints}pts.`
+    }
 }
 

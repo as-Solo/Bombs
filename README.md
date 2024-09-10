@@ -71,7 +71,7 @@ A mi profesor, porque sin su guía este proyecto no habría sido posible:
 * [Jorge Berrizbeitia](https://github.com/jorgeberrizbeitia)
 
 A quien confió en mi y me dijo que no era una locura intentar hacerlo en este tiempo:
-* Jesús Suaste
+* [Jesús Suaste](https://github.com/suastech)
 
 Y a mis compañeros de clase por aguantar mis preguntas tontas, mis preguntas pesadas, mis dos cuentas en el zoom, y sobre todo por los consejos, la ayuda y las risas.
 
