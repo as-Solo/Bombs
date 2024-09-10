@@ -47,13 +47,13 @@ class GameData{
 
         this.map = [
             '11111111111111111',
-            '100000100000000e1',
+            '100000000000000e1',
             '10101210101010101',
             '10002020000000001',
+            '1e101010101010101',
+            '10002000S00000001',
             '10101010101010101',
-            '10002010S00000001',
-            '10101010101010101',
-            '10002010000000001',
+            '10002000000000001',
             '10101010101010101',
             '1e00000000000e001',
             '11111111111111111',
@@ -77,6 +77,7 @@ class GameData{
     }
 
 
+    // muros vs jugador. muro vs enemigos.
     checkCollisionsWalls(){
         for (let i = this.muros.length - 1; i >= 0 ; i--) {
            
@@ -128,7 +129,7 @@ class GameData{
                 const enemigo = this.enemies[j];
                 if (!this.player.inmune && enemigo.didCollide(this.player.element)){
                     this.player.dies(this.initialPosition[0], this.initialPosition[1])
-                }
+                }//sacar de este bucle
 
                 if (enemigo.willCollide(obstacle.element, -1, 0)) {
                     enemigo.canMoveLeft = false;
@@ -294,7 +295,7 @@ class GameData{
                     }
                     if (bomba.isCollide && enemigo.willCollide(bomba.element, 0, -1)) {
                         enemigo.canMoveUp = false;
-                        // console.log("colisiono", enemigo.canMoveUp)
+                        console.log("colisiono", enemigo.canMoveUp)
 
                     }
                     else{
@@ -302,7 +303,7 @@ class GameData{
                     }
                     if (bomba.isCollide && enemigo.willCollide(bomba.element, 0, 1)) {
                         enemigo.canMoveDown = false;
-                        // console.log("colisiono  ", enemigo.canMoveDown)
+                        console.log("colisiono  ", enemigo.canMoveDown)
 
                     }
                     else{
@@ -363,6 +364,15 @@ class GameData{
         }
     }
 
+    // explosion vs muros. explosion vs enemigos. explosion vs jugador.
+    checkCollisionExplosion() {}
+
+    // enemigos vs jugador
+    checkCollisionEnemyPlayer() {}
+    
+    // bombs vs jugador. bomb vs enemigo
+    checkCollisionBomb() {}
+
 
     start(){
         this.gameScreen.style.height = `${this.height}px`;
@@ -380,7 +390,7 @@ class GameData{
                 else if (this.map[i][j] === 'e'){
                     let randomDirection = (Math.floor(Math.random()* 2))
                     // console.log(randomDirection)
-                    const enemy = new Enemy(j*50, i*50, this.gameBoard, randomDirection, (1 - randomDirection))
+                    const enemy = new Enemy(j*50, i*50, this.gameBoard, 0, 1)
                     this.enemies.push(enemy)
                     this.numEnemies++;
                 }
@@ -501,7 +511,7 @@ class GameData{
         this.textoTime.innerText = `${this.crono.minutesT}:${this.crono.secondsT}`;
         this.textoKillScore.innerText = `${this.enemiesKill} x ${this.pointsEchKill}`;
         this.textoKillScoreSum.innerText = `${this.enemiesKill * this.pointsEchKill}pts.`;
-        this.pointsTime = ((this.tiempo - this.crono.transcurrido) * 20)
+        this.pointsTime = (this.crono.time * 20)
         this.textoTimeScore.innerText = `${this.crono.minutes}:${this.crono.seconds}`;
         this.textoTimeScoreSum.innerText = `${this.pointsTime}pts.`;
         this.textoTitleScore.innerText = `'piromano'`;
@@ -510,3 +520,4 @@ class GameData{
     }
 }
 
+ 
