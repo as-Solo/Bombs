@@ -59,20 +59,25 @@ class Bomberman{
 
         let i = 0;
         this.animationId = setInterval(()=>{
-            if (this.topDirection === 1){
-                this.path = "./images/player/bottom/"
-            }
-            else if (this.topDirection === -1){
-                this.path = "./images/player/top/"
-            }
-            else if (this.leftDirection === -1){
-                this.path = "./images/player/left/"
-            }
-            else if (this.leftDirection === 1){
-                this.path = "./images/player/right/"
-            }
-            i += 0.2;
-            this.element.src = `${this.path}${this.sprite[Math.floor(i) % 9]}`;
+            // if (this.leftDirection + this. topDirection === 0){
+            //     this.path = "./images/player/right/"
+            // }
+            // else{
+                if (this.topDirection === 1){
+                    this.path = "./images/player/bottom/"
+                }
+                else if (this.topDirection === -1){
+                    this.path = "./images/player/top/"
+                }
+                else if (this.leftDirection === -1){
+                    this.path = "./images/player/left/"
+                }
+                else if (this.leftDirection === 1){
+                    this.path = "./images/player/right/"
+                }
+                i += 0.2;
+                this.element.src = `${this.path}${this.sprite[Math.floor(i) % 9]}`;
+            // }
         }, 1000/60)
     };
     
@@ -124,7 +129,10 @@ class Bomberman{
     // moveLeft(){};
     // moveUp(){};
     // moveDown(){};
-    stop(){};
+    // stop(){
+    //     this.path = "./images/player/stand/"
+    //     this.standId = setInterval()
+    // }; // Creo que deprecated
     updatePosition(){
         this.element.style.left = `${this.left}px`;
         this.element.style.top = `${this.top}px`;   

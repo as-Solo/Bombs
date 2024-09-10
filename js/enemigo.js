@@ -12,7 +12,9 @@ class Enemy{
         this.speedBonus = 1;
         this.speedDistance = 30
         this.speed = Math.floor(50 / (this.speedDistance - this.speedBonus));
+        this.movement = 0;
         this.isAlive = true;
+        this.isInicio = true;
 
         this.path = "./images/enemy/bottom/"
         this.sprite = ['en_01.png', 'en_02.png', 'en_03.png', 'en_04.png']
@@ -29,6 +31,11 @@ class Enemy{
 
         this.animationId = null;
         this.movementId = null;
+
+        this.canMoveLeft = true;
+        this.canMoveRight = true;
+        this.canMoveDown = true;
+        this.canMoveUp = true;
 
         this.animation();
         this.move()
@@ -55,8 +62,8 @@ class Enemy{
         }, 200)
     }
     move(){
-        this.left += this.speed * this.leftDirection;
-        this.top += this.speed * this.topDirection;
+        this.left += this.movement * this.leftDirection;
+        this.top += this.movement * this.topDirection;
         this.updatePosition();
     };
     updatePosition(){
@@ -81,10 +88,10 @@ class Enemy{
     willCollide(obstacle, leftDirection, topDirection){
         const playerRect = this.element.getBoundingClientRect();
         const obstacleRect = obstacle.getBoundingClientRect();
-        if (Math.floor(playerRect.left + (this.speed * leftDirection)) < Math.floor(obstacleRect.right) &&
-            Math.floor(playerRect.right + (this.speed * leftDirection)) > Math.floor(obstacleRect.left) &&
-            Math.floor(playerRect.top + (this.speed * topDirection)) < Math.floor(obstacleRect.bottom) &&
-            Math.floor(playerRect.bottom + (this.speed * topDirection)) > Math.floor(obstacleRect.top)){
+        if (Math.floor(playerRect.left + (1 * leftDirection)) < Math.floor(obstacleRect.right) &&
+            Math.floor(playerRect.right + (1 * leftDirection)) > Math.floor(obstacleRect.left) &&
+            Math.floor(playerRect.top + (1 * topDirection)) < Math.floor(obstacleRect.bottom) &&
+            Math.floor(playerRect.bottom + (1 * topDirection)) > Math.floor(obstacleRect.top)){
             return true;
         }
         else {
@@ -95,6 +102,9 @@ class Enemy{
     ajustarAlto(){
         let resultado = this.top;
         let decenas = this.top % 100
+        this.movement = 0;
+        this.topDirection = 0;
+        this.leftDirection = 0;
 
         if (decenas < 40){
             resultado = (this.top - decenas)
@@ -118,6 +128,9 @@ class Enemy{
     ajustarLeft(){
         let resultado = this.left;
         let decenas = this.left % 100
+        this.movement = 0;
+        this.topDirection = 0;
+        this.leftDirection = 0;
 
         if (decenas < 30){
             resultado = (this.left - decenas)
@@ -136,6 +149,10 @@ class Enemy{
             resultado = this.screen.offsetWidth;
         }
         this.left = resultado;
+    }
+
+    restore(){
+        this.movement = this.speed;
     }
 
     dies(){

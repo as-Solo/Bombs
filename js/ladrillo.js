@@ -1,11 +1,11 @@
 class Ladrillo{
-    constructor(left, top, screen){
+    constructor(left, top, screen, isBonus = false, bonusType = null){
         this.left = left;
         this.top = top;
         this.width = 50;
         this.height = 50;
-        this.isBonus = false;
-        this.bonusType = "tipo de Bonus";
+        this.isBonus = isBonus;
+        this.bonusType = bonusType;
         this.screen = screen;
 
         this.element = document.createElement("img")

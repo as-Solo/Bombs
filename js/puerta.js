@@ -15,6 +15,7 @@ class Puerta{
         this.element = document.createElement("img");
         this.element.src = `${this.path}${this.sprite[0]}`
         this.element.style.position = "absolute";
+        this.element.style.display = "none";
         this.element.style.width = `${this.w}px`;
         this.element.style.height = `${this.h}px`;
         this.element.style.left = `${this.left}px`;
@@ -31,6 +32,8 @@ class Puerta{
         this.isCollide = true
         let i = 0;
         this.openId = setInterval(()=>{
+        this.element.style.display = "block";
+
             i++
             this.element.src = `${this.path}${this.sprite[i]}`
             if (i>=9){
@@ -43,6 +46,7 @@ class Puerta{
             this.element.src = `${this.path}${this.spriteW[i % this.spriteW.length]}`
         }, 200)
     }
+    
     close(){
         //ojo que aqui tienes que cuadrarlo con la animacion de desaparicion de player
     }
