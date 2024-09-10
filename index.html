@@ -10,14 +10,14 @@
 </head>
 <body>
     <div id="container">
-        <div id="inicio">
+        <div id="inicio" style="display: none;">
             <form id="enter-name">
                 <label for="nombre">Name:</label>
                 <input type="text" value = "" name="nombre" placeholder="Your name" >
                 <button id="start-button" type="button">Start Game</button>
             </form>
         </div>
-        <div id="game">
+        <div id="game" style="display: none;">
             <div id="datos">
                 <div id="crono">
                     <div class="panel minutos">05</div>
@@ -43,12 +43,65 @@
             <div id="game-over" class="over">
                 <div class="letrasGO"></div>
             </div>
+            <div id="next-level" class="over">
+                <div class="letrasNL">
+                    <div class="imagenNL"></div>
+                    <div><p>Lamentablemente ahora mismo no tenemos más niveles 🤖</p></div>
+                </div>
+            </div>
         </div>
-        <div id="ranking">
-            <button id="restart-button">Restart Game</button>
+        <div id="ranking" style="display:flex">
+            <h1>Tu puntuación:</h1>
+            <section class="puntuaciones">
+                <div class="score-panel">
+                    <p>Tiempo transcurrido</p>
+                    <p class="puntos">01:42</p>
+                </div>
+                <div class="score-panel">
+                    <p>Bombas usadas</p>
+                    <p class="puntos">20</p>
+                </div>
+                <div class="score-panel">
+                    <p>Enemigos eliminados</p>
+                    <p class="puntos">3</p>
+                </div>
+            </section>
+            <div class="half-bottom">
+                <section class="tablas">
+                    <div class="ranking">
+                        <h3>Ranking:</h3>
+                        <div class="puntuacion">
+                            <p>1258</p>
+                            <p>.....</p>
+                            <p>ACG</p>
+                        </div>
+                    </div>
+                </section>
+                <div class="half-right">
+                    <section class="tablas score">
+                        <div class="linea-score">
+                            <p id="killScore">3 x 300</p>
+                            <p>........</p>
+                            <p id="killScoreSum">900pts</p>
+                        </div>
+                        <div class="linea-score">
+                            <p id="timeScore">01:42</p>
+                            <p>........</p>
+                            <p id="timeScoreSum">1.300pts</p>
+                        </div>
+                        <div class="linea-score">
+                            <p id="tittleScore">'piromano'</p>
+                            <p>........</p>
+                            <p id="tittleScoreSum">200pts</p>
+                        </div>
+                        <h2 id="totalScore">2400pts</h2>
+                    </section>
+                    <button id="restart-button">Restart Game</button>
+                </div>
+            </div>
         </div>
     </div>
-    <script src="./js/bomba.js"></script>
+    <!-- <script src="./js/bomba.js"></script>
     <script src="./js/bomberman.js"></script>
     <script src="./js/crono.js"></script>
     <script src="./js/enemigo.js"></script>
@@ -57,6 +110,6 @@
     <script src="./js/muro.js"></script>
     <script src="./js/puerta.js"></script>
     <script src="./js/explosion.js"></script>
-    <script src="./js/ladrillo.js"></script>
+    <script src="./js/ladrillo.js"></script> -->
 </body>
 </html>

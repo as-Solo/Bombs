@@ -12,6 +12,7 @@ class GameData{
         this.minutos = document.querySelector("#crono .minutos");
         this.segundos = document.querySelector("#crono .segundos");
         this.gameOverScreen = document.querySelector("#game-over");
+        this.nextLevelScreen = document.querySelector("#next-level");
         this.width = 1100;
         this.height = 750;
         this.numEnemies = 0;
@@ -27,27 +28,31 @@ class GameData{
             '11111111111111111',
             '10000000000000001',
             '10101210101010101',
-            '100020200e0000001',
+            '10002020000000001',
+            '10101010101010101',
+            '10002000S00000001',
             '10101010101010101',
             '10002000000000001',
             '10101010101010101',
-            '10002000000000001',
-            '10101010101010101',
-            '1e000000000000e01',
+            '1e000000000000001',
             '11111111111111111',
         ]
         this.elementosColisionables = [];
 
-        this.tiempo = 3; //342
+        this.tiempo = 342; //342
         this.scores = 0
         this.lives = 3;
+
         this.gameIsOver = false;
+        this.nextStage = false;
+
         this.gameIntervalId = null;
         this.gameLoopFrequency = 1000/60
 
         this.initialPosition = [50, 50]
-        this.player = new Bomberman(this.gameBoard, this.initialPosition[0], this.initialPosition[1], "./images/player-stand.png");
+        this.player = new Bomberman(this.gameBoard, this.initialPosition[0], this.initialPosition[1]);
         this.crono = new Crono(this.tiempo);
+        this.puerta = null;
     }
 
 
@@ -101,19 +106,7 @@ class GameData{
             for (let j = this.enemies.length - 1; j >= 0; j--){
                 const enemigo = this.enemies[j];
                 if (!this.player.inmune && enemigo.didCollide(this.player.element)){
-                    this.player.inmune = true
-                    this.player.vidas--;
-                    if (this.player.vidas <= 0){
-                        this.numVidas.innerText = this.player.vidas
-                        this.gameIsOver = true;
-                    }
-                    else{
-                        this.player.left = this.initialPosition[0]
-                        this.player.top = this.initialPosition[1];
-                        setTimeout(()=>{
-                            this.player.inmune = false
-                        }, 1000)
-                    }
+                    this.player.dies(this.initialPosition[0], this.initialPosition[1])
                 }
 
                 if (enemigo.willCollide(obstacle.element, -1, 0)) {
@@ -186,6 +179,7 @@ class GameData{
                     
                     const bomba = this.player.bombasPuestas[k];
                     
+                    // -----------------------     DESTRUCCION DE MUROS    -------------------------
                     if ((obstacle instanceof Muro) && (bomba.didCollide(50, 0, 0, 0, obstacle.element))){
                         bomba.llamaLeft = false;
                         // console.log("left")
@@ -238,6 +232,8 @@ class GameData{
                         }, 500)
                     }
 
+                    // =================    MUERTE DE ENEMIGOS Y DE PLAYER    ==========================
+
                     if(bomba.explotar && (bomba.explotar) &&
                         (bomba.didCollide(50, 0, 0, 0, enemigo.element) ||
                         bomba.didCollide(0, 50, 0, 0, enemigo.element) ||
@@ -246,6 +242,100 @@ class GameData{
                         bomba.didCollide(0, 0, 0, 0, enemigo.element))){
                             enemigo.dies()
                             this.indexEnemiesDel.add(j);            
+                    }
+                    if(!this.player.inmune && bomba.explotar && (bomba.explotar) &&
+                        (bomba.didCollide(50, 0, 0, 0, this.player.element) ||
+                        bomba.didCollide(0, 50, 0, 0, this.player.element) ||
+                        bomba.didCollide(0, 0, 50, 0, this.player.element) ||
+                        bomba.didCollide(0, 0, 0, 50, this.player.element) ||
+                        bomba.didCollide(0, 0, 0, 0, this.player.element))){
+                            this.player.dies(this.initialPosition[0], this.initialPosition[1])    
+                    }
+                    if (!bomba.didCollide(0, 0, 0, 0, this.player.element)){
+                        bomba.isCollide = true;
+                    }
+
+                    // ---------------------- COLISIONES CON ENEMIGOS Y BOMBAS PUESTAS ---------------------
+                    if (bomba.isCollide && enemigo.willCollide(bomba.element, -1, 0)) {
+                        enemigo.canMoveLeft = false;
+                        console.log("colisiono", enemigo.canMoveLeft)
+                    }
+                    else{
+                        enemigo.canMoveLeft = true
+                    }
+                    if (bomba.isCollide && enemigo.willCollide(bomba.element, 1, 0)) {
+                        enemigo.canMoveRight = false;
+                        console.log("colisiono", enemigo.canMoveRight)
+                        
+                    }
+                    else{
+                        enemigo.canMoveRight = true
+                    }
+                    if (bomba.isCollide && enemigo.willCollide(bomba.element, 0, -1)) {
+                        enemigo.canMoveUp = false;
+                        console.log("colisiono", enemigo.canMoveUp)
+
+                    }
+                    else{
+                        enemigo.canMoveUp = true
+                    }
+                    if (bomba.isCollide && enemigo.willCollide(bomba.element, 0, 1)) {
+                        enemigo.canMoveDown = false;
+                        console.log("colisiono  ", enemigo.canMoveDown)
+
+                    }
+                    else{
+                        enemigo.canMoveDown = true
+                    }
+                    if (!enemigo.canMoveLeft && enemigo.leftDirection !== 0) {
+                        enemigo.leftDirection *= -1;
+                    }
+                    if (!enemigo.canMoveRight && enemigo.leftDirection !== 0) {
+                        enemigo.leftDirection *= -1;
+                    }
+                    if (!enemigo.canMoveUp && enemigo.topDirection !== 0) {
+                        enemigo.topDirection *= -1;
+                    }
+                    if (!enemigo.canMoveDown && enemigo.topDirection !== 0) {
+                        enemigo.topDirection *= -1;
+                    }
+                    // ==================   COLISIONES DE JUGADOR Y BOMBA   ====================
+                    if (bomba.isCollide && this.player.willCollide(bomba.element, -1, 0)) {
+                        this.player.canMoveLeft = false;
+                    }
+                    else{
+                        this.player.canMoveLeft = true
+                    }
+                    if (bomba.isCollide && this.player.willCollide(bomba.element, 1, 0)) {
+                        this.player.canMoveRight = false;
+                    }
+                    else{
+                        this.player.canMoveRight = true
+                    }
+                    if (bomba.isCollide && this.player.willCollide(bomba.element, 0, -1)) {
+                        this.player.canMoveUp = false;
+                    }
+                    else{
+                        this.player.canMoveUp = true
+                    }
+                    if (bomba.isCollide && this.player.willCollide(bomba.element, 0, 1)) {
+                        this.player.canMoveDown = false;
+                    }
+                    else{
+                        this.player.canMoveDown = true
+                    }
+        
+                    if (!this.player.canMoveLeft && this.player.leftDirection === -1) {
+                        this.player.leftDirection = 0;
+                    }
+                    if (!this.player.canMoveRight && this.player.leftDirection === 1) {
+                        this.player.leftDirection = 0;
+                    }
+                    if (!this.player.canMoveUp && this.player.topDirection === -1) {
+                        this.player.topDirection = 0;
+                    }
+                    if (!this.player.canMoveDown && this.player.topDirection === 1) {
+                        this.player.topDirection = 0;
                     }
                 }
             }
@@ -273,10 +363,14 @@ class GameData{
                     this.enemies.push(enemy)
                     this.numEnemies++;
                 }
+                else if (this.map[i][j] === 'S'){
+                    this.puerta = new Puerta(j*50, i*50, this.gameBoard)
+                }
             }
         }
         this.startScreen.style.display = "none";
         this.gameScreen.style.display = "flex";
+
         this.gameIntervalId = setInterval(() => {this.gameLoop()}, this.gameLoopFrequency)
     };
 
@@ -285,19 +379,20 @@ class GameData{
         this.update();
         if (this.gameIsOver) {
             clearInterval(this.gameIntervalId)
-           this.gameOverScreen.classList.toggle("show")
-           setTimeout(()=>{
-               this.gameEndScreen.style.display = "flex"
-               this.gameScreen.style.display = "none"
-           }, 4000)
-        //    let step = 0;
-        //    let opacityId =setInterval(() => {
-        //         this.gameEndScreen.style.opacity = step;
-        //         step += .01;
-        //         if (step >= 1){
-        //             clearInterval(opacityId);
-        //         }
-        //    }, 80);
+            this.gameOverScreen.classList.toggle("show")
+            setTimeout(()=>{
+                this.gameEndScreen.style.display = "flex"
+                this.gameScreen.style.display = "none"
+            }, 4000)
+        }
+        if (this.nextStage){
+            clearInterval(this.gameIntervalId)
+            this.nextLevelScreen.classList.toggle("show")
+            setTimeout(()=>{
+                this.gameEndScreen.style.display = "flex"
+                this.gameScreen.style.display = "none"
+            }, 4000)
+
         }
     };
 
@@ -330,9 +425,11 @@ class GameData{
             for (let index of this.indexEnemiesDel){
                 // console.log(index)
                 this.enemies.splice(index, 1)
+                this.numEnemies--;
             }
             this.indexEnemiesDel.clear();
             if (this.enemies.length === 0){
+                this.removeWalls();
                 this.enemies.push(new Enemy(-50, -50, this.gameBoard,  0, 0))
             }
         }
@@ -344,16 +441,27 @@ class GameData{
         this.minutos.innerText = this.crono.minutes
         this.segundos.innerText = this.crono.seconds
         this.numBombs.innerText = this.player.numBombs - this.player.bombasPuestas.length
+        if (this.puerta){
+            console.log(this.numEnemies);
+            if(this.numEnemies === 0){
+                this.puerta.isOpen = true
+            }
+            if (this.puerta.isOpen && !this.puerta.isCollide){
+                this.puerta.open()
+            }
+        }
         this.bombList();
-        this.removeWalls();
         this.removeEnemies();
-        // this.checkCollisionsEnemies();
         this.checkCollisionsWalls();
         this.enemies.forEach((enemy)=>{
             enemy.move();
         })
         this.player.move();
-        if (this.crono.time <=0){
+        if (this.player.didCollide(this.puerta.element) && this.puerta.isCollide){
+            this.nextStage = true;
+        }
+        if (this.crono.time <=0 || this.player.vidas <= 0){
+            this.numVidas.innerText = this.player.vidas
             this.gameIsOver = true
         }
     };

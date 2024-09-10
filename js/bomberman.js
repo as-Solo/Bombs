@@ -1,7 +1,7 @@
 // Solo 06/09/2024
 
 class Bomberman{
-    constructor(screen, left, top, imgSrc){
+    constructor(screen, left, top){
         this.screen = screen;
         this.left = left;
         this.top = top;
@@ -13,8 +13,11 @@ class Bomberman{
         this.canMoveUp = true;
         this.canMoveDown = true;
         
+        this.path = "./images/player/bottom/"
+        this.sprite = ['pl_01.png', 'pl_02.png', 'pl_03.png', 'pl_04.png', 'pl_05.png', 'pl_06.png', 'pl_07.png', 'pl_08.png', 'pl_09.png']
+
         this.element =document.createElement("img");
-        this.element.src = imgSrc;
+        this.element.src = "./images/player-stand.png";
         this.element.style.position = "absolute";
         this.element.style.width = `${this.w}px`;
         this.element.style.height = `${this.h}px`;
@@ -34,9 +37,15 @@ class Bomberman{
 
         this.numBombs = 3;
         this.distancia = 1;
-        this.demolition = false;
+        // this.demolition = false;
         this.bombasPuestas = [];
-        this.animation = null;
+        
+        this.animationID = null;
+        this.standId = null;
+        this.animation()
+        // metele un is moving para que cada vez que vaya a moverse, si es falso lance
+        // this.animation y lo ponga a true y que la funcion stop lo ponga a flase y lance otro bucle
+        // this.animation tiene que hacer clear del bucle standId (llamado por la funcion move())
     }
 
     move(){
@@ -44,6 +53,27 @@ class Bomberman{
         this.top += this.speed * this.topDirection;
         this.updatePosition();
         // console.log("alto  " + this.top)
+    };
+
+    animation(){
+
+        let i = 0;
+        this.animationId = setInterval(()=>{
+            if (this.topDirection === 1){
+                this.path = "./images/player/bottom/"
+            }
+            else if (this.topDirection === -1){
+                this.path = "./images/player/top/"
+            }
+            else if (this.leftDirection === -1){
+                this.path = "./images/player/left/"
+            }
+            else if (this.leftDirection === 1){
+                this.path = "./images/player/right/"
+            }
+            i += 0.2;
+            this.element.src = `${this.path}${this.sprite[Math.floor(i) % 9]}`;
+        }, 1000/60)
     };
     
     ajustarAlto(){
@@ -170,5 +200,16 @@ class Bomberman{
             const bomba = new Bomba(this.screen, bombLeft, bombTop, this.distancia, this.demolition);
             this.bombasPuestas.push(bomba);
         }
-    };
+    }
+
+    dies(left, top){
+        this.inmune = true
+        this.vidas--;
+        
+        this.left = left;
+        this.top = top;
+        setTimeout(()=>{
+            this.inmune = false
+        }, 3000)
+    }
 }
