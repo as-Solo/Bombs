@@ -264,9 +264,12 @@ class GameData{
 
     // enemigos vs jugador
     checkCollisionEnemyPlayer() {
-        if (!this.player.inmune && enemigo.didCollide(this.player.element)){
-            this.player.dies(this.initialPosition[0], this.initialPosition[1])
-        }//sacar de este bucle
+        for (let p = this.enemies.length - 1; p >= 0; p--){
+            const enemigo = this.enemies[p]
+            if (!this.player.inmune && enemigo.didCollide(this.player.element)){
+                this.player.dies(this.initialPosition[0], this.initialPosition[1])
+            }//sacar de este bucle
+        }
     }
     
     // bombs vs jugador. bomb vs enemigo
@@ -322,7 +325,7 @@ class GameData{
                         if (enemigo.topDirection !== 0)
                             enemigo.topDirection *= -1;
                         else{
-                            enemigo.leftDirection += -1;
+                            enemigo.leftDirection *= -1;
                         }
                     }
                 }
@@ -451,9 +454,12 @@ class GameData{
         this.bombList();
         this.removeEnemies();
         this.removeWalls();
+
         this.checkCollisionsWalls();
         this.checkCollisionExplosion();
         this.checkCollisionBombs();
+        this.checkCollisionEnemyPlayer();
+
         this.enemies.forEach((enemy)=>{
             enemy.move();
         })

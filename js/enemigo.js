@@ -16,6 +16,8 @@ class Enemy{
         this.isAlive = true;
         this.isInicio = true;
 
+        this.isCollide = false;
+
         this.path = "./images/enemy/bottom/"
         this.sprite = ['en_01.png', 'en_02.png', 'en_03.png', 'en_04.png']
 
