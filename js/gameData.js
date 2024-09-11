@@ -2,6 +2,23 @@
 
 class GameData{
     constructor(){
+        // -----------------------------------------------------------
+        this.audioWin = document.createElement('audio');
+        this.audioWin.src = "./audio/Next_Stage.mp3";
+        this.audioGameOver = document.createElement('audio');
+        this.audioGameOver.src = "./audio/Game_Over.mp3";
+        this.audioGame = document.createElement('audio');
+        this.audioGame.src = "./audio/Game_BSO.mp3";
+        this.audioGame.loop = true;
+        this.audioGame.volume = .5;
+        // this.audioGameId - null;
+        this.audioRanking = document.createElement('audio');
+        this.audioRanking.src = "./audio/Ranking.mp3";
+        this.audioRanking.loop = true;
+        this.audioRanking.volume = .5;
+
+        this.audioInicio = document.querySelector('#audio-inicio');
+        // -----------------------------------------------------------
         this.startScreen = document.querySelector("#inicio");
         this.gameScreen = document.querySelector("#game");
         this.gameBoard = document.querySelector("#game-board");
@@ -49,13 +66,13 @@ class GameData{
             '11111111111111111',
             '1000000e000000001',
             '101010101e1010101',
-            '100020200020e0201',
+            '10002020002000201',
             '10101010101010101',
-            '1000200es02222201',
+            '10002000S02222201',
             '10101010101010101',
             '10002000002000201',
             '10101010101010101',
-            '100e000e000000001',
+            '10000000000000001',
             '11111111111111111',
         ]
         this.elementosColisionables = [];
@@ -335,6 +352,9 @@ class GameData{
 
 
     start(){
+        this.audioInicio.pause()
+        this.audioGame.play()
+   
         this.gameScreen.style.height = `${this.height}px`;
         this.gameScreen.style.width = `${this.width}px`;
         for (let i = 0; i<this.map.length; i++){
@@ -365,7 +385,6 @@ class GameData{
         }
         this.startScreen.style.display = "none";
         this.gameScreen.style.display = "flex";
-
         this.gameIntervalId = setInterval(() => {this.gameLoop()}, this.gameLoopFrequency)
     };
 
@@ -377,19 +396,25 @@ class GameData{
             this.removeWalls();
             clearInterval(this.gameIntervalId)
             this.gameOverScreen.classList.toggle("show")
+            this.audioGame.pause()
+            this.audioGameOver.play()
             setTimeout(()=>{
                 this.gameEndScreen.style.display = "flex"
                 this.gameScreen.style.display = "none"
+                this.audioRanking.play()
             }, 4000)
         }
         if (this.nextStage){
             this.updateScores()
             this.removeWalls()
             clearInterval(this.gameIntervalId)
+            this.audioGame.pause()
             this.nextLevelScreen.classList.toggle("show")
+            this.audioWin.play()
             setTimeout(()=>{
                 this.gameEndScreen.style.display = "flex"
                 this.gameScreen.style.display = "none"
+                this.audioRanking.play()
             }, 4000)
 
         }

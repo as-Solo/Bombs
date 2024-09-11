@@ -1,6 +1,6 @@
 // Solo 06/09/2024
 
-
+// audioInicio = document.querySelector('#audio-inicio');
 window.onload = function () {
   
     const startButton = document.querySelector("#start-button");
