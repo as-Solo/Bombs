@@ -10,11 +10,11 @@ class GameData{
         this.audioGame = document.createElement('audio');
         this.audioGame.src = "./audio/Game_BSO.mp3";
         this.audioGame.loop = true;
-        this.audioGame.volume = .2;
+        this.audioGame.volume = .1;
         this.audioRanking = document.createElement('audio');
         this.audioRanking.src = "./audio/Ranking.mp3";
         this.audioRanking.loop = true;
-        this.audioRanking.volume = .2;
+        this.audioRanking.volume = .1;
 
         this.audioMuerte = document.createElement('audio');
         this.audioMuerte.src = "./audio/muerte_player.mp3";

@@ -41,7 +41,7 @@ let levelIndex = 0;
     ]
 window.onload = function () {
     audioInicio = document.querySelector('#audio-inicio');
-    audioInicio.volume = .2
+    audioInicio.volume = .1
     const startButton = document.querySelector("#start-button");
     const restartButton = document.getElementById("restart-button");
     const nextLeveltButton = document.getElementById("next-level-button");
