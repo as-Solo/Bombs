@@ -10,17 +10,15 @@ class GameData{
         this.audioGame = document.createElement('audio');
         this.audioGame.src = "./audio/Game_BSO.mp3";
         this.audioGame.loop = true;
-        this.audioGame.volume = .4;
+        this.audioGame.volume = .2;
         this.audioRanking = document.createElement('audio');
         this.audioRanking.src = "./audio/Ranking.mp3";
         this.audioRanking.loop = true;
-        this.audioRanking.volume = .4;
+        this.audioRanking.volume = .2;
 
         this.audioMuerte = document.createElement('audio');
         this.audioMuerte.src = "./audio/muerte_player.mp3";
-        this.audioExplosion = document.createElement('audio');
-        this.audioExplosion.src = "./audio/Explosion.mp3";
-        
+
 
         // this.audioCountdown = document.createElement('audio');
         // this.audioCountdown.src = "./audio/Cuenta_Atras.mp3";

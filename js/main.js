@@ -1,8 +1,8 @@
 // Solo 06/09/2024
 
-// audioInicio = document.querySelector('#audio-inicio');
+audioInicio = document.querySelector('#audio-inicio');
 window.onload = function () {
-    // audioInicio.play()
+    audioInicio.volume = .2
     const startButton = document.querySelector("#start-button");
     const restartButton = document.getElementById("restart-button");
     let game;

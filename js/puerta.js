@@ -26,10 +26,13 @@ class Puerta{
         this.openId = null;
         this.waitId = null;
         // this.open()
+        this.audioOpenDoor = document.createElement('audio');
+        this.audioOpenDoor.src = "./audio/OpenDoor.mp3";
     }
 
     open(){
         this.isCollide = true
+        this.audioOpenDoor.play()
         let i = 0;
         this.openId = setInterval(()=>{
         this.element.style.display = "block";

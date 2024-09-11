@@ -33,6 +33,9 @@ class Bomba{
         this.element.style.top = `${this.top}px`;
         
         this.screen.appendChild(this.element);
+
+        this.audioExplosion = document.createElement('audio');
+        this.audioExplosion.src = "./audio/Explosion.mp3";
         this.ticTac();
     }
 
@@ -66,6 +69,7 @@ class Bomba{
             let llamaBottom = new Explosion(this.screen, this.left, this.top  + 50, "bottom");
             this.llamas.push(llamaBottom)
         }
+        this.audioExplosion.play()
         let sec = 0
         const bombId = setInterval(()=>{
             this.element.src = this.spriteExCenter[sec];
