@@ -377,7 +377,7 @@ Rosa claro 223 114 155
     align-items: center;
   }
   .imagenNL{
-    background-image: url("../proceso/NextLevel.png");
+    background-image: url("../images/NextLevel.png");
     background-repeat: no-repeat;
     background-size:contain;
     background-position: center;
