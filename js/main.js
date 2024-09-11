@@ -2,7 +2,7 @@
 
 // audioInicio = document.querySelector('#audio-inicio');
 window.onload = function () {
-  
+    // audioInicio.play()
     const startButton = document.querySelector("#start-button");
     const restartButton = document.getElementById("restart-button");
     let game;

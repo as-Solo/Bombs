@@ -10,12 +10,17 @@ class GameData{
         this.audioGame = document.createElement('audio');
         this.audioGame.src = "./audio/Game_BSO.mp3";
         this.audioGame.loop = true;
-        this.audioGame.volume = .5;
-        // this.audioGameId - null;
+        this.audioGame.volume = .4;
         this.audioRanking = document.createElement('audio');
         this.audioRanking.src = "./audio/Ranking.mp3";
         this.audioRanking.loop = true;
-        this.audioRanking.volume = .5;
+        this.audioRanking.volume = .4;
+
+        this.audioMuerte = document.createElement('audio');
+        this.audioMuerte.src = "./audio/muerte_player.mp3";
+        this.audioCountdown = document.createElement('audio');
+        this.audioCountdown.src = "./audio/Cuenta_Atras.mp3";
+        this.audioCountdown.volume = 1;
 
         this.audioInicio = document.querySelector('#audio-inicio');
         // -----------------------------------------------------------
@@ -284,6 +289,7 @@ class GameData{
         for (let p = this.enemies.length - 1; p >= 0; p--){
             const enemigo = this.enemies[p]
             if (!this.player.inmune && enemigo.didCollide(this.player.element)){
+                this.audioMuerte.play()
                 this.player.dies(this.initialPosition[0], this.initialPosition[1])
             }//sacar de este bucle
         }
@@ -500,6 +506,25 @@ class GameData{
             this.numVidas.innerText = this.player.vidas
             this.gameIsOver = true
         }
+        // else if(this.crono.time <= 10){
+        //     this.audioCountdown.play()
+        //     this.audioGame.volume = .1
+        //     let count = 0;
+        //     let countId = setInterval(()=>{
+        //         count++
+        //         if (count % 2 === 0){
+        //             this.minutos.style.color  = "red";
+        //             this.segundos.style.color = "red"
+        //         }
+        //         else{
+        //             this.segundos.style.color = "white"
+        //             this.minutos.style.color = "white"
+        //         }
+        //         if (count >=20){
+        //             clearInterval(countId)
+        //         }
+        //     }, 500)
+        // }   // no me ha terminado de convencer
     };
 
     updateScores(){
