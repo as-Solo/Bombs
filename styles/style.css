@@ -18,7 +18,7 @@
 }
 
 #inicio{
-    display: flex;
+     display: flex; /*flex  VALOR DE INICIO PARA QUE FUNCIONE!!!*/
     position: relative;
     /* border: solid 1px green; */
     width: 1100px;
@@ -231,7 +231,7 @@ Rosa claro 223 114 155
 
 
  #game{
-    display: none;
+    display: none; /* none VALOR DE INICIO PARA QUE FUNCIONE*/
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
@@ -314,20 +314,27 @@ Rosa claro 223 114 155
 
 #game-over{
     position: absolute;
-    display: flex;
+    display: flex; /*flex VALOR DE INICIO PARA QUE FUNCIONE*/
     width: 100vw;
-    height: 120vh;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.781);
+    margin-top: 18px;
 }
 
 .over {
-    visibility: hidden;
+    visibility: hidden;   /*hidden VALOR DE INICIO PARA QUE FUNCIONE*/
 }
 
 .show{
     visibility: visible;
     -webkit-animation: fadein 0.6s, fadeout 0.9s 4s;
     animation: fadein 0.6s, fadeout 0.9s 4s;
+}
+
+.show2{
+    visibility: visible;
+    -webkit-animation: fadein 0.6s;
+    animation: fadein 0.6s;
 }
 
 @-webkit-keyframes fadein {
@@ -367,19 +374,21 @@ Rosa claro 223 114 155
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 120vh;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.781);
+    margin-top: 18px;
     /* border: solid 1px green; */
     /* bottom: 0; */
 
 }
 .letrasNL{
-    height: 60%;
+    height: 75%;
     width: 850px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* border: solid 2px greenyellow; */
   }
   .imagenNL{
     background-image: url("../images/NextLevel.png");
@@ -387,21 +396,60 @@ Rosa claro 223 114 155
     background-size:contain;
     background-position: center;
     width: 600px;
-    height: 80%;
+    height: 70%;
     /* border: solid 1px green; */
 
   }
 
-  #next-level p{
+  .container-boton-NL{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /* border: solid 2px lightgreen; */
+    width: 650px;
+  }
+
+  #next-level .p1{
     width: 650px;
     height: 70px;
     font-family: "Press Start 2P";
     font-size: 1.2rem;;
     border: solid 3px rgb(196, 35, 78);
     text-align: center;
-    margin: auto;
+    margin-bottom: 15px;
     padding: 15px;
     background-color: rgb(214, 61, 102);
     color: white;
     border-radius: 15px;
+  }
+  #next-level .p2{
+    /* width: 650px;
+    height: 70px; */
+    font-family: "Press Start 2P";
+    font-size: 1.2rem;
+    border: solid 3px rgb(196, 35, 78);
+    text-align: center;
+    margin: auto;
+    padding: 5px 30px;
+    background-color: rgb(214, 61, 102);
+    color: white;
+    border-radius: 10px;
+  }
+
+  #next-level-button{
+    font-family: "Press Start 2P";
+    font-size: 1.2rem;
+    padding: 10px 30px;
+    background-color: white;
+    border: solid 3px rgb(196, 35, 78);
+    color: rgb(196, 35, 78);
+    border-radius: 10px;
+  }
+
+  #next-level-button:hover{
+    font-size: 1.25rem;
+    background-color: rgb(196, 35, 78);
+    border: solid 3px white;
+    color: white;
+    text-shadow: 1px 1px 1px black;
   }

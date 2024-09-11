@@ -19,11 +19,6 @@ class GameData{
         this.audioMuerte = document.createElement('audio');
         this.audioMuerte.src = "./audio/muerte_player.mp3";
 
-
-        // this.audioCountdown = document.createElement('audio');
-        // this.audioCountdown.src = "./audio/Cuenta_Atras.mp3";
-        // this.audioCountdown.volume = 1;
-
         this.audioInicio = document.querySelector('#audio-inicio');
         // -----------------------------------------------------------
         this.startScreen = document.querySelector("#inicio");
@@ -37,6 +32,9 @@ class GameData{
         this.segundos = document.querySelector("#crono .segundos");
         this.gameOverScreen = document.querySelector("#game-over");
         this.nextLevelScreen = document.querySelector("#next-level");
+        
+        this.nextLevelButtonPanel = document.querySelector(".container-boton-NL")
+        
         this.textoBombas = document.querySelector("#bombas-usadas");
         this.textoTime = document.querySelector("#tiempo-total");
         this.textoMuertos = document.querySelector("#enemigos-eliminados");
@@ -72,19 +70,8 @@ class GameData{
         this.muros = [];
         this.indexMurosDel = new Set();
 
-        this.map = [
-            '11111111111111111',
-            '1000000e000000001',
-            '101010101e1010101',
-            '10002000002000201',
-            '10101010101010101',
-            '1000200S002222201',
-            '10101010101010101',
-            '10002000002000201',
-            '10101010101010101',
-            '1e000000000000001',
-            '11111111111111111',
-        ]
+        this.map = levels[levelIndex];
+
         this.elementosColisionables = [];
 
         this.tiempo = 342; //342
@@ -407,17 +394,21 @@ class GameData{
             }, 4000)
         }
         if (this.nextStage){
-            this.updateScores()
-            this.removeWalls()
-            clearInterval(this.gameIntervalId)
-            this.audioGame.pause()
-            this.nextLevelScreen.classList.toggle("show")
-            this.audioWin.play()
-            setTimeout(()=>{
-                this.gameEndScreen.style.display = "flex"
-                this.gameScreen.style.display = "none"
-                this.audioRanking.play()
-            }, 4000)
+            levelIndex++;
+            if (levelIndex >= levels.length){
+                this.gameIsOver = true;
+            }
+            else{
+                this.updateScores()
+                this.removeWalls()
+                clearInterval(this.gameIntervalId)
+                this.audioGame.pause()
+                this.nextLevelScreen.classList.toggle("show2")
+                this.audioWin.play()
+                setTimeout(()=>{
+                    this.nextLevelButtonPanel.classList.toggle("show2") 
+                }, 2000)
+            }
 
         }
     };
@@ -524,7 +515,7 @@ class GameData{
         this.textoTime.innerText = `${this.crono.minutesT}:${this.crono.secondsT}`;
         this.textoKillScore.innerText = `${this.enemiesKill} x ${this.pointsEchKill}`;
         this.textoKillScoreSum.innerText = `${this.enemiesKill * this.pointsEchKill}pts.`;
-        if (this.gameIsOver){
+        if (this.gameIsOver && !this.nextStage){
             this.pointsTime = 0;
             this.textoTitleScore.innerText = `'Maancooo!'`;
             this.titlePoints = 0;
@@ -538,7 +529,7 @@ class GameData{
         this.textoTitleScoreSum.innerText = `${this.titlePoints}pts.`;
         let totalScore = this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints;
         this.textoTotalScore.innerText = `${this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints}pts.`
-        if (jugador){
+        if (jugador != null){
             if (!jugador.puntuaciones.includes(totalScore)){
                 jugador.addPoints(totalScore)
             }
@@ -547,6 +538,7 @@ class GameData{
         }
     }
     crearRanking(totalScore){
+        this.textoRanking.innerHTML = '';
         const topTen = [...jugador.puntuaciones].sort((a, b)=> b - a);
         for (let i = 0; i < 10 && i < jugador.puntuaciones.length; i++){
             const fila = document.createElement("div");
