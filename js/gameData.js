@@ -544,11 +544,13 @@ class GameData{
         this.textoTitleScoreSum.innerText = `${this.titlePoints}pts.`;
         let totalScore = this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints;
         this.textoTotalScore.innerText = `${this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints}pts.`
-        this.textoMaxPuntos.innerText = `${Math.max(jugador.puntuaciones)}pts`
-        this.textoName.innerText = `${jugador.name}`
-        jugador.addPoints(totalScore)
-        console.log(jugador.puntuaciones);
-        localStorage.setItem(jugador.name, JSON.stringify(jugador.puntuaciones));
+       if (jugador){
+           this.textoMaxPuntos.innerText = `${Math.max(jugador.puntuaciones)}pts`
+           this.textoName.innerText = `${jugador.name}`
+           jugador.addPoints(totalScore)
+           console.log(jugador.puntuaciones);
+           localStorage.setItem(jugador.name, JSON.stringify(jugador.puntuaciones));
+       }
     }
 }
 
