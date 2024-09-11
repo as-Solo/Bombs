@@ -47,6 +47,8 @@ class GameData{
         this.textoTimeScore = document.querySelector("#time-score");
         this.textoTimeScoreSum = document.querySelector("#time-score-sum");
         this.textoTotalScore = document.querySelector("#total-score");
+        this.textoMaxPuntos = document.querySelector("#puntitos");
+        this.textoName = document.querySelector("#nombre-jugador");
         
         this.enemiesKill = 0;
         this.bombsUsed = 0;
@@ -540,7 +542,13 @@ class GameData{
         this.textoTimeScoreSum.innerText = `${this.pointsTime}pts.`;
         this.textoTitleScore.innerText = `'piromano'`;
         this.textoTitleScoreSum.innerText = `${this.titlePoints}pts.`;
+        let totalScore = this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints;
         this.textoTotalScore.innerText = `${this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints}pts.`
+        this.textoMaxPuntos.innerText = `${Math.max(jugador.puntuaciones)}pts`
+        this.textoName.innerText = `${jugador.name}`
+        jugador.addPoints(totalScore)
+        console.log(jugador.puntuaciones);
+        localStorage.setItem(jugador.name, JSON.stringify(jugador.puntuaciones));
     }
 }
 

@@ -1,5 +1,5 @@
 // Solo 06/09/2024
-
+let jugador;
 audioInicio = document.querySelector('#audio-inicio');
 window.onload = function () {
     audioInicio.volume = .2
@@ -7,6 +7,26 @@ window.onload = function () {
     const restartButton = document.getElementById("restart-button");
     let game;
     
+    const form = document.getElementById('enter-name');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const nombreJugador = document.getElementById('nombre').value
+        jugador = new Jugador(nombreJugador);
+
+        if (localStorage.getItem(jugador.name)){
+            console.log("existe")
+            jugador.puntuaciones = JSON.parse(localStorage.getItem(jugador.name))
+            // localStorage.setItem(jugador.name, JSON.stringify([]))  // resetear jugador
+            console.log(jugador)
+        }
+        else{
+            localStorage.setItem(jugador.name, JSON.stringify(jugador.puntuaciones));
+            console.log("no existe")
+        }
+    });
+
+
     startButton.addEventListener("click", function () {
       startGame();
     });
@@ -16,8 +36,11 @@ window.onload = function () {
       });
 
     function startGame() {
+
         game = new GameData();
         game.start();
+        window.addEventListener("keydown", presionarKey);
+        window.addEventListener("keyup", soltarKey);
     }
 
     function presionarKey(event) {
@@ -99,6 +122,4 @@ window.onload = function () {
             }
         }
     }
-    window.addEventListener("keydown", presionarKey);
-    window.addEventListener("keyup", soltarKey);
 }  

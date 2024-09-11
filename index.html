@@ -15,7 +15,7 @@
         <div id="inicio">
             <form id="enter-name">
                 <label for="nombre">Name:</label>
-                <input type="text" value = "" name="nombre" placeholder="Your name" >
+                <input id="nombre" type="text" value = "" name="nombre" placeholder="Your name" >
                 <button id="start-button" type="button">Start Game</button>
             </form>
         </div>
@@ -73,9 +73,9 @@
                     <div class="ranking">
                         <h3>Ranking:</h3>
                         <div class="puntuacion">
-                            <p>1258</p>
+                            <p id="puntitos">1258</p>
                             <p>.....</p>
-                            <p>ACG</p>
+                            <p id="nombre-jugador">ACG</p>
                         </div>
                     </div>
                 </section>
@@ -113,5 +113,6 @@
     <script src="./js/puerta.js"></script>
     <script src="./js/explosion.js"></script>
     <script src="./js/ladrillo.js"></script>
+    <script src="./js/jugador.js"></script>
 </body>
 </html>
