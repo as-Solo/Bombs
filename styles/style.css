@@ -367,7 +367,7 @@ Rosa claro 223 114 155
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.781);
-    border: solid 1px green;
+    /* border: solid 1px green; */
 
 }
 .letrasNL{

@@ -510,25 +510,25 @@ class GameData{
             this.numVidas.innerText = this.player.vidas
             this.gameIsOver = true
         }
-        // else if(this.crono.time <= 10){
-        //     this.audioCountdown.play()
-        //     this.audioGame.volume = .1
-        //     let count = 0;
-        //     let countId = setInterval(()=>{
-        //         count++
-        //         if (count % 2 === 0){
-        //             this.minutos.style.color  = "red";
-        //             this.segundos.style.color = "red"
-        //         }
-        //         else{
-        //             this.segundos.style.color = "white"
-        //             this.minutos.style.color = "white"
-        //         }
-        //         if (count >=20){
-        //             clearInterval(countId)
-        //         }
-        //     }, 500)
-        // }   // no me ha terminado de convencer
+        else if(this.crono.time === 10){
+            this.audioCountdown.play()
+            this.audioGame.volume = .1
+            let count = 0;
+            let countId = setInterval(()=>{
+                count++
+                if (count % 2 === 0){
+                    this.minutos.style.color  = "red";
+                    this.segundos.style.color = "red"
+                }
+                else{
+                    this.segundos.style.color = "white"
+                    this.minutos.style.color = "white"
+                }
+                if (count >=20){
+                    clearInterval(countId)
+                }
+            }, 500)
+        }   // no me ha terminado de convencer
     };
 
     updateScores(){
@@ -545,11 +545,12 @@ class GameData{
         let totalScore = this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints;
         this.textoTotalScore.innerText = `${this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints}pts.`
        if (jugador){
-           this.textoMaxPuntos.innerText = `${Math.max(jugador.puntuaciones)}pts`
-           this.textoName.innerText = `${jugador.name}`
            jugador.addPoints(totalScore)
-           console.log(jugador.puntuaciones);
            localStorage.setItem(jugador.name, JSON.stringify(jugador.puntuaciones));
+           console.log(...jugador.puntuaciones);
+           console.log(Math.max(...jugador.puntuaciones));
+           this.textoMaxPuntos.innerText = `${Math.max(...jugador.puntuaciones)}pts`
+           this.textoName.innerText = `${jugador.name}`
        }
     }
 }
