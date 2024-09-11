@@ -28,7 +28,20 @@ window.onload = function () {
 
 
     startButton.addEventListener("click", function () {
-      startGame();
+        const nombreJugador = document.getElementById('nombre').value
+        jugador = new Jugador(nombreJugador);
+        
+        if (localStorage.getItem(jugador.name)){
+            console.log("existe")
+            jugador.puntuaciones = JSON.parse(localStorage.getItem(jugador.name))
+            // localStorage.setItem(jugador.name, JSON.stringify([]))  // resetear jugador
+            console.log(jugador)
+        }
+        else{
+            localStorage.setItem(jugador.name, JSON.stringify(jugador.puntuaciones));
+            console.log("no existe")
+        }
+        startGame();
     });
 
     restartButton.addEventListener("click", function () {

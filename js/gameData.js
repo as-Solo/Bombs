@@ -47,8 +47,9 @@ class GameData{
         this.textoTimeScore = document.querySelector("#time-score");
         this.textoTimeScoreSum = document.querySelector("#time-score-sum");
         this.textoTotalScore = document.querySelector("#total-score");
-        this.textoMaxPuntos = document.querySelector("#puntitos");
-        this.textoName = document.querySelector("#nombre-jugador");
+        this.textoRanking = document.querySelector(".ranking");
+        // this.textoMaxPuntos = document.querySelector(".puntitos");
+        // this.textoName = document.querySelector(".nombre-jugador");
         
         this.enemiesKill = 0;
         this.bombsUsed = 0;
@@ -75,13 +76,13 @@ class GameData{
             '11111111111111111',
             '1000000e000000001',
             '101010101e1010101',
-            '10002020002000201',
+            '10002000002000201',
             '10101010101010101',
-            '10002000S02222201',
+            '1000200S002222201',
             '10101010101010101',
             '10002000002000201',
             '10101010101010101',
-            '10000000000000001',
+            '1e000000000000001',
             '11111111111111111',
         ]
         this.elementosColisionables = [];
@@ -101,8 +102,6 @@ class GameData{
         this.crono = new Crono(this.tiempo);
         this.puerta = null;
     }
-
-
     // muros vs jugador. muro vs enemigos.
     checkCollisionsWalls(){
         for (let i = this.muros.length - 1; i >= 0 ; i--) {
@@ -190,7 +189,6 @@ class GameData{
             }
         }
     }
-
     // explosion vs muros. explosion vs enemigos. explosion vs jugador.
     checkCollisionExplosion() {
         for (let k = this.player.bombasPuestas.length - 1; k >= 0; k--){
@@ -287,7 +285,6 @@ class GameData{
             }
         }
     }
-
     // enemigos vs jugador
     checkCollisionEnemyPlayer() {
         for (let p = this.enemies.length - 1; p >= 0; p--){
@@ -298,7 +295,6 @@ class GameData{
             }//sacar de este bucle
         }
     }
-    
     // bombs vs jugador. bomb vs enemigo
     checkCollisionBombs() {
         for(let m = this.player.bombasPuestas.length - 1; m >=0; m--){
@@ -359,8 +355,6 @@ class GameData{
             }
         }
     }
-
-
     start(){
         this.audioInicio.pause()
         this.audioGame.play()
@@ -397,8 +391,6 @@ class GameData{
         this.gameScreen.style.display = "flex";
         this.gameIntervalId = setInterval(() => {this.gameLoop()}, this.gameLoopFrequency)
     };
-
-    
     gameLoop(){
         this.update();
         if (this.gameIsOver) {
@@ -429,7 +421,6 @@ class GameData{
 
         }
     };
-
     bombList(){
         if (this.player.bombasPuestas.length > 0){
             for (let i = this.player.bombasPuestas.length - 1; i >= 0; i--){
@@ -444,7 +435,6 @@ class GameData{
             }
         }
     }
-
     removeWalls(){
         if (this.indexMurosDel.size > 0){
             for (let index of this.indexMurosDel){
@@ -454,7 +444,6 @@ class GameData{
             this.indexMurosDel.clear();
         }
     }
-
     removeEnemies(){
         if (this.indexEnemiesDel.size > 0){
             for (let index of this.indexEnemiesDel){
@@ -470,7 +459,6 @@ class GameData{
             // }
         }
     }
-
     update(){
         this.numVidas.innerText = this.player.vidas
         this.speed.innerText = `x${this.player.speedBonus}`
@@ -510,48 +498,71 @@ class GameData{
             this.numVidas.innerText = this.player.vidas
             this.gameIsOver = true
         }
-        else if(this.crono.time === 10){
-            this.audioCountdown.play()
-            this.audioGame.volume = .1
-            let count = 0;
-            let countId = setInterval(()=>{
-                count++
-                if (count % 2 === 0){
-                    this.minutos.style.color  = "red";
-                    this.segundos.style.color = "red"
-                }
-                else{
-                    this.segundos.style.color = "white"
-                    this.minutos.style.color = "white"
-                }
-                if (count >=20){
-                    clearInterval(countId)
-                }
-            }, 500)
-        }   // no me ha terminado de convencer
+        // else if(this.crono.time === 10){
+        //     this.audioCountdown.play()
+        //     this.audioGame.volume = .1
+        //     let count = 0;
+        //     let countId = setInterval(()=>{
+        //         count++
+        //         if (count % 2 === 0){
+        //             this.minutos.style.color  = "red";
+        //             this.segundos.style.color = "red"
+        //         }
+        //         else{
+        //             this.segundos.style.color = "white"
+        //             this.minutos.style.color = "white"
+        //         }
+        //         if (count >=20){
+        //             clearInterval(countId)
+        //         }
+        //     }, 500)
+        // }   // no me ha terminado de convencer
     };
-
     updateScores(){
         this.textoBombas.innerText = this.bombsUsed;
         this.textoMuertos.innerText = this.enemiesKill;
         this.textoTime.innerText = `${this.crono.minutesT}:${this.crono.secondsT}`;
         this.textoKillScore.innerText = `${this.enemiesKill} x ${this.pointsEchKill}`;
         this.textoKillScoreSum.innerText = `${this.enemiesKill * this.pointsEchKill}pts.`;
-        this.pointsTime = (this.crono.time * 20)
+        if (this.gameIsOver){
+            this.pointsTime = 0;
+            this.textoTitleScore.innerText = `'Maancooo!'`;
+            this.titlePoints = 0;
+        }
+        else{
+            this.pointsTime = (this.crono.time * 20)
+            this.textoTitleScore.innerText = `'piromano'`;
+        }
         this.textoTimeScore.innerText = `${this.crono.minutes}:${this.crono.seconds}`;
         this.textoTimeScoreSum.innerText = `${this.pointsTime}pts.`;
-        this.textoTitleScore.innerText = `'piromano'`;
         this.textoTitleScoreSum.innerText = `${this.titlePoints}pts.`;
         let totalScore = this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints;
         this.textoTotalScore.innerText = `${this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints}pts.`
-       if (jugador){
-           jugador.addPoints(totalScore)
-           localStorage.setItem(jugador.name, JSON.stringify(jugador.puntuaciones));
-           console.log(...jugador.puntuaciones);
-           console.log(Math.max(...jugador.puntuaciones));
-           this.textoMaxPuntos.innerText = `${Math.max(...jugador.puntuaciones)}pts`
-           this.textoName.innerText = `${jugador.name}`
-       }
+        if (jugador){
+            if (!jugador.puntuaciones.includes(totalScore)){
+                jugador.addPoints(totalScore)
+            }
+            localStorage.setItem(jugador.name, JSON.stringify(jugador.puntuaciones));
+            this.crearRanking(totalScore);
+        }
+    }
+    crearRanking(totalScore){
+        const topTen = [...jugador.puntuaciones].sort((a, b)=> b - a);
+        for (let i = 0; i < 10 && i < jugador.puntuaciones.length; i++){
+            const fila = document.createElement("div");
+            fila.innerHTML = 
+            `<div class="puntuacion">
+            <p id="puntitos">${topTen[i]}pts.</p>
+            <p>.....</p>
+            <p id="nombre-jugador">${jugador.name}</p>
+            </div>`
+            if (topTen[i] == totalScore){
+                fila.style.color = "yellow";
+                fila.style.fontSize = ".9rem"
+            }
+            this.textoRanking.appendChild(fila);
+        }
+       
     }
 }
 
