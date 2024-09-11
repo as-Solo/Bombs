@@ -18,9 +18,13 @@ class GameData{
 
         this.audioMuerte = document.createElement('audio');
         this.audioMuerte.src = "./audio/muerte_player.mp3";
-        this.audioCountdown = document.createElement('audio');
-        this.audioCountdown.src = "./audio/Cuenta_Atras.mp3";
-        this.audioCountdown.volume = 1;
+        this.audioExplosion = document.createElement('audio');
+        this.audioExplosion.src = "./audio/Explosion.mp3";
+        
+
+        // this.audioCountdown = document.createElement('audio');
+        // this.audioCountdown.src = "./audio/Cuenta_Atras.mp3";
+        // this.audioCountdown.volume = 1;
 
         this.audioInicio = document.querySelector('#audio-inicio');
         // -----------------------------------------------------------
