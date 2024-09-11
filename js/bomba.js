@@ -8,7 +8,7 @@ class Bomba{
         this.w = 50;
         this.h = 50;
         this.sprite = ["./images/bomba/bomba_01.png", "./images/bomba/bomba_02.png", "./images/bomba/bomba_03.png", "./images/bomba/bomba_04.png"];
-        this.spriteExCenter = ["./images/explosion/ex_01.png", "./images/explosion/ex_02.png", "./images/explosion/ex_03.png", "./images/explosion/ex_04.png", "./images/explosion/ex_05.png", "./images/explosion/ex_06.png", "./images/explosion/ex_07.png", "./images/explosion/ex_08.png", "./images/explosion/ex_09.png", "./images/explosion/ex_10.png", "./images/explosion/ex_11.png", "./images/explosion/ex_12.png", "./images/explosion/ex_13.png", "./images/explosion/ex_14.png", "./images/explosion/ex_15.png", "./images/explosion/ex_16.png", "./images/explosion/ex_17.png", "./images/explosion/ex_18.png", "./images/explosion/ex_19.png"];
+        this.spriteExCenter = ["./images/Explosion/ex_01.png", "./images/Explosion/ex_02.png", "./images/Explosion/ex_03.png", "./images/Explosion/ex_04.png", "./images/Explosion/ex_05.png", "./images/Explosion/ex_06.png", "./images/Explosion/ex_07.png", "./images/Explosion/ex_08.png", "./images/Explosion/ex_09.png", "./images/Explosion/ex_10.png", "./images/Explosion/ex_11.png", "./images/Explosion/ex_12.png", "./images/Explosion/ex_13.png", "./images/Explosion/ex_14.png", "./images/Explosion/ex_15.png", "./images/Explosion/ex_16.png", "./images/Explosion/ex_17.png", "./images/Explosion/ex_18.png", "./images/Explosion/ex_19.png"];
         this.distancia = distancia;
         this.atraviesa = demolition;
         this.explotar = false;
