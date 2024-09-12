@@ -207,7 +207,7 @@ class GameData{
                 // ENEMIGOS ========================================================================================================
                 for (let l = this.enemies.length - 1; l >= 0; l--){
                     const enemigo = this.enemies[l]
-                    if(bomba.explotar && llama.didCollide(enemigo)){ //enemigo.isAlive &&
+                    if(enemigo.isAlive && bomba.explotar && llama.didCollide(enemigo)){ // eligiendo bugs
                         this.indexEnemiesDel.add(l);            
                         enemigo.dies()
                     }
