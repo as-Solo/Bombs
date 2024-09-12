@@ -45,15 +45,15 @@ class GameData{
         this.textoTimeScore = document.querySelector("#time-score");
         this.textoTimeScoreSum = document.querySelector("#time-score-sum");
         this.textoTotalScore = document.querySelector("#total-score");
-        this.textoRanking = document.querySelector(".ranking");
+        this.textoRanking = document.querySelector(".texto-ranking");
         // this.textoMaxPuntos = document.querySelector(".puntitos");
         // this.textoName = document.querySelector(".nombre-jugador");
         
-        this.enemiesKill = 0;
-        this.bombsUsed = 0;
+        // this.enemiesKill = 0;// deprecated
+        // this.titlePoints = 550; //deprecated
+        // this.bombsUsed = 0; // deprecated
+        // this.pointsTime = 0; // deprecated
         this.pointsEchKill = 300;
-        this.pointsTime = 0;
-        this.titlePoints = 550;
         this.wallDestroyed = 0;
         //tiempo de game - tiempo transcurrido de crono * 150
         // ya pensaremos algo para el numero de bombas, los titulos y sus puntuaciones
@@ -168,7 +168,7 @@ class GameData{
                     enemigo.isInicio = false;    
                 }
 
-                if (enemigo.didCollide(obstacle.element)){
+                if (enemigo.didCollide(obstacle)){
                     console.log("")
                     enemigo.leftDirection *= -1;
                     enemigo.topDirection *= -1;
@@ -261,7 +261,7 @@ class GameData{
     checkCollisionEnemyPlayer() {
         for (let p = this.enemies.length - 1; p >= 0; p--){
             const enemigo = this.enemies[p]
-            if (!this.player.inmune && enemigo.didCollide(this.player.element)){
+            if (!this.player.inmune && enemigo.didCollide(this.player)){
                 this.audioMuerte.play()
                 this.player.dies(this.initialPosition[0], this.initialPosition[1])
             }//sacar de este bucle
@@ -316,7 +316,7 @@ class GameData{
                 const enemigo = this.enemies[n]
 
                 if (bomba.isCollide){
-                    if (enemigo.didCollide(bomba.element)){
+                    if (enemigo.didCollide(bomba)){
                         if (enemigo.topDirection !== 0)
                             enemigo.topDirection *= -1;
                         else{
@@ -403,7 +403,7 @@ class GameData{
                 if (this.player.bombasPuestas[i].isRemovable){
                     const deleteBomb = this.player.bombasPuestas[i].element;
                     this.player.bombasPuestas.splice(i, 1);
-                    this.bombsUsed++;
+                    bombsUsed++;
                     setTimeout(()=>{
                         deleteBomb.remove();
                     }, 4000)
@@ -426,7 +426,7 @@ class GameData{
                 // console.log(index)
                 this.enemies.splice(index, 1)
                 this.numEnemies--;
-                this.enemiesKill++;
+                enemiesKill++;
             }
             this.indexEnemiesDel.clear();
             // if (this.enemies.length === 0){
@@ -436,7 +436,7 @@ class GameData{
         }
     }
     update(){
-        this.numVidas.innerText = this.player.vidas
+        this.numVidas.innerText = vidas
         this.speed.innerText = `x${this.player.speedBonus}`
         this.minutos.innerText = this.crono.minutes
         this.segundos.innerText = this.crono.seconds
@@ -465,38 +465,40 @@ class GameData{
         })
         this.player.move();
         if(this.puerta){
-            if (this.player.didCollide(this.puerta.element) && this.puerta.isCollide){
+            if (this.player.didCollide(this.puerta) && this.puerta.isCollide){
                 this.nextStage = true;
                 // hacerte una funcion para que checkee si esta dentro de la puerta
                 // seria que estuviese en las mismas coordenadas, pero con un margen de error
             }
         }
-        if (this.crono.time <=0 || this.player.vidas === 0){ // <= 0 OJO
-            this.numVidas.innerText = this.player.vidas
+        if (this.crono.time <=0 || vidas === 0){ // <= 0 OJO
+            this.numVidas.innerText = vidas
             this.gameIsOver = true
         }
     
     };
     updateScores(){
-        this.textoBombas.innerText = this.bombsUsed;
-        this.textoMuertos.innerText = this.enemiesKill;
+        this.textoBombas.innerText = bombsUsed;
+        this.textoMuertos.innerText = enemiesKill;
         this.textoTime.innerText = `${this.crono.minutesT}:${this.crono.secondsT}`;
-        this.textoKillScore.innerText = `${this.enemiesKill} x ${this.pointsEchKill}`;
-        this.textoKillScoreSum.innerText = `${this.enemiesKill * this.pointsEchKill}pts.`;
+        this.textoKillScore.innerText = `${enemiesKill} x ${this.pointsEchKill}`;
+        this.textoKillScoreSum.innerText = `${enemiesKill * this.pointsEchKill}pts.`;
+        // el tiempo y la puntuacion por titulo se añade porque es independiente de cada nivel
         if (this.gameIsOver && !this.nextStage){
-            this.pointsTime = 0;
+            timeScore += 0;
             this.textoTitleScore.innerText = `'Maancooo!'`;
-            this.titlePoints = 0;
+            tittleScore += 0;
         }
         else{
-            this.pointsTime = (this.crono.time * 20)
+            timeScore += (this.crono.time * 20)
             this.textoTitleScore.innerText = `'piromano'`;
         }
         this.textoTimeScore.innerText = `${this.crono.minutes}:${this.crono.seconds}`;
-        this.textoTimeScoreSum.innerText = `${this.pointsTime}pts.`;
-        this.textoTitleScoreSum.innerText = `${this.titlePoints}pts.`;
-        let totalScore = this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints;
-        this.textoTotalScore.innerText = `${this.pointsTime + (this.enemiesKill * this.pointsEchKill) + this.titlePoints}pts.`
+        this.textoTimeScoreSum.innerText = `${timeScore}pts.`;
+        this.textoTitleScoreSum.innerText = `${tittleScore}pts.`;
+        totalScore += timeScore + (enemiesKill * this.pointsEchKill) + tittleScore;
+        // timeScore + (enemiesKill * this.pointsEchKill) + tittleScore // DEPRECATEDISIMO
+        this.textoTotalScore.innerText = `${totalScore}pts.`
         if (jugador != null){
             if (!jugador.puntuaciones.includes(totalScore)){
                 jugador.addPoints(totalScore)

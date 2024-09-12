@@ -1,5 +1,13 @@
 // Solo 06/09/2024
 
+let vidas = 3;
+let bombsUsed = 0;
+let enemiesKill = 0;
+let timeScore = 0;
+let tittleScore = 0;
+let killScore = 0
+let totalScore = 0;
+
 let jugador = null;
 let levelIndex = 0;
     let levels = [

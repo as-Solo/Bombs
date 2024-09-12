@@ -132,10 +132,12 @@
 }
 
 .half-bottom{
+  
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 90%;
+    /* border: solid 1px black; */
 }
 .ranking{
     display: flex;

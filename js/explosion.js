@@ -20,7 +20,7 @@ class Explosion{
         this.element.style.height = `${this.h}px`;
         this.element.style.left = `${this.left}px`;
         this.element.style.top = `${this.top}px`;
-        this.element.style.display = this.sprite[0];
+        // this.element.style.src = this.sprite[0];
         if (imgSrc == "bottom"){
             this.element.style.transform = "rotate(90deg) scaleY(-1)"
         }
@@ -29,7 +29,6 @@ class Explosion{
 
         }
         else if (imgSrc == "left"){
-            // this.element.style.transform = "scaleX(-1) scaleY(-1"
             this.element.style.transform = "rotate(180deg)"
 
         }
@@ -42,11 +41,11 @@ class Explosion{
         let sec = 0
         const bombId = setInterval(()=>{
             this.element.src = `${this.pathEnd}${this.sprite[sec]}`;
+            sec++;
             if (this.end === 1){
                 this.element.style.display = "block"
             }
-            sec++;
-            if (sec >= 5){
+            if (sec > 4 && sec < 15){
                 this.element.style.display = "block"
                 if (this.distance !== this.end){
                     this.element.src = `${this.pathMid}${this.sprite[sec]}`;
@@ -55,7 +54,7 @@ class Explosion{
                     this.element.src = `${this.pathEnd}${this.sprite[sec]}`;
                 }
             }
-            if (sec >=14){
+            if (sec >14){
                 this.element.style.display = "none"
                 clearInterval(bombId);
             }
