@@ -265,6 +265,7 @@ class GameData{
             if (!this.player.inmune && enemigo.didCollide(this.player)){
                 this.audioMuerte.play()
                 this.player.dies(this.initialPosition[0], this.initialPosition[1])
+                console.log("Ay!")
             }//sacar de este bucle
         }
     }
