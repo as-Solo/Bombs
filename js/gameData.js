@@ -207,11 +207,12 @@ class GameData{
                 // ENEMIGOS ========================================================================================================
                 for (let l = this.enemies.length - 1; l >= 0; l--){
                     const enemigo = this.enemies[l]
-                    if(enemigo.isAlive && bomba.explotar && llama.didCollide(enemigo)){ // eligiendo bugs
-                        this.indexEnemiesDel.add(l);            
+                    if(bomba.explotar && llama.didCollide(enemigo)){ // eligiendo bugs enemigo.isAlive && 
                         enemigo.dies()
+                        this.indexEnemiesDel.add(l);           
                     }
                 }
+                this.removeEnemies();
                 // PLAYER =======================================================================================================
                 if(!this.player.inmune && bomba.explotar && llama.didCollide(this.player)){
                     this.player.dies(this.initialPosition[0], this.initialPosition[1])    
