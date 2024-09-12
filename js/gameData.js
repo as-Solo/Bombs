@@ -179,96 +179,78 @@ class GameData{
     // explosion vs muros. explosion vs enemigos. explosion vs jugador.
     checkCollisionExplosion() {
         for (let k = this.player.bombasPuestas.length - 1; k >= 0; k--){
-                    
             const bomba = this.player.bombasPuestas[k];
-            // MUROS ===========================================================================================================
-            for (let l = this.muros.length -1; l >=0 ; l--){
-                const obstacle = this.muros[l]
-                if ((obstacle instanceof Muro) && (bomba.didCollide(50, 0, 0, 0, obstacle.element))){
-                    bomba.llamaLeft = false;
-                    // console.log("left")
-                }
-                else if(bomba.explotar && (obstacle instanceof Ladrillo) && (bomba.didCollide(50, 0, 0, 0, obstacle.element))){
-                    this.indexMurosDel.add(l);
-                    if (obstacle.isBonus){
-                        this.puerta = new Puerta(obstacle.left, obstacle.top, this.gameBoard)
-                    }
-                    setTimeout(()=>{
-                        obstacle.element.remove()
-                        obstacle.element.style.display = "none"
-                    }, 500)
-                }
-                if ((obstacle instanceof Muro) && (bomba.didCollide(0, 50, 0, 0, obstacle.element))){
-                    bomba.llamaRight = false;
-                    // console.log("right")
-    
-                }
-                else if(bomba.explotar && (obstacle instanceof Ladrillo) && (bomba.didCollide(0, 50, 0, 0, obstacle.element))){
-                    this.indexMurosDel.add(l);
-                    if (obstacle.isBonus){
-                        this.puerta = new Puerta(obstacle.left, obstacle.top, this.gameBoard)
-                    }
-                    setTimeout(()=>{
-                        obstacle.element.remove()
-                        obstacle.element.style.display = "none"
-                    }, 500)
-                }
-                if ((obstacle instanceof Muro) && (bomba.didCollide(0, 0, 50, 0, obstacle.element))){
-                    bomba.llamaTop = false;
-                    // console.log("top")
-    
-                }
-                else if(bomba.explotar && (obstacle instanceof Ladrillo) && (bomba.didCollide(0, 0, 50, 0, obstacle.element))){
-                    this.indexMurosDel.add(l);
-                    if (obstacle.isBonus){
-                        this.puerta = new Puerta(obstacle.left, obstacle.top, this.gameBoard)
-                    }
-                    setTimeout(()=>{
-                        obstacle.element.remove()
-                        obstacle.element.style.display = "none"
-                    }, 500)
-                }
-                if ((obstacle instanceof Muro) && (bomba.didCollide(0, 0, 0, 50, obstacle.element))){
-                    bomba.llamaBottom = false;
-                    // console.log("bottom")
-    
-                }
-                else if(bomba.explotar && (obstacle instanceof Ladrillo) && (bomba.didCollide(0, 0, 0, 50, obstacle.element))){
-                    this.indexMurosDel.add(l);
-                    if (obstacle.isBonus){
-                        this.puerta = new Puerta(obstacle.left, obstacle.top, this.gameBoard)
-                    }
-                    setTimeout(()=>{
-                        obstacle.element.remove()
-                        obstacle.element.style.display = "none"
-                    }, 500)
-                }
-            }
-
-            // ENEMIGOS ========================================================================================================
-            for (let l = this.enemies.length - 1; l >= 0; l--){
-                const enemigo = this.enemies[l]
-                if(bomba.explotar && (bomba.explotar) &&
-                    (bomba.didCollide(50, 0, 0, 0, enemigo.element) ||
-                    bomba.didCollide(0, 50, 0, 0, enemigo.element) ||
-                    bomba.didCollide(0, 0, 50, 0, enemigo.element) ||
-                    bomba.didCollide(0, 0, 0, 50, enemigo.element) ||
-                    bomba.didCollide(0, 0, 0, 0, enemigo.element))){
-                        enemigo.dies()
-                        this.indexEnemiesDel.add(l);            
-                }
-            }
-            // DE PLAYER =======================================================================================================
-            if(!this.player.inmune && bomba.explotar && (bomba.explotar) &&
-                (bomba.didCollide(50, 0, 0, 0, this.player.element) ||
-                bomba.didCollide(0, 50, 0, 0, this.player.element) ||
-                bomba.didCollide(0, 0, 50, 0, this.player.element) ||
-                bomba.didCollide(0, 0, 0, 50, this.player.element) ||
-                bomba.didCollide(0, 0, 0, 0, this.player.element))){
-                    this.player.dies(this.initialPosition[0], this.initialPosition[1])    
-            }
             if (!bomba.didCollide(0, 0, 0, 0, this.player.element)){
                 bomba.isCollide = true;
+            }
+            // LLAMAS  ===============================================================
+            for (let x = bomba.llamas.length - 1; x >= 0; x--){
+                const llama = bomba.llamas[x];
+                // console.log(llama)
+                // MUROS ===========================================================================================================
+                for (let l = this.muros.length -1; l >=0 ; l--){
+                    const obstacle = this.muros[l]
+                    if((obstacle instanceof Ladrillo) && (llama.didCollide(0, 0, 0, 0, obstacle.element))){
+                        this.indexMurosDel.add(l);
+                        if (obstacle.isBonus){
+                            this.puerta = new Puerta(obstacle.left, obstacle.top, this.gameBoard)
+                        }
+                        setTimeout(()=>{
+                            obstacle.element.remove()
+                            obstacle.element.style.display = "none"
+                        }, 500)
+                    }
+                }
+                // ENEMIGOS ========================================================================================================
+                for (let l = this.enemies.length - 1; l >= 0; l--){
+                    const enemigo = this.enemies[l]
+                    if(enemigo.isAlive && bomba.explotar && llama.didCollide(0, 0, 0, 0, enemigo.element)){
+                        this.indexEnemiesDel.add(l);            
+                        enemigo.dies()
+                    }
+                }
+                // PLAYER =======================================================================================================
+                if(!this.player.inmune && bomba.explotar && llama.didCollide(0, 0, 0, 0, this.player.element)){
+                    this.player.dies(this.initialPosition[0], this.initialPosition[1])    
+                }
+            }
+        }
+    }
+    // Pintar llamas
+    checkExplosionDistance() {
+        for (let k = this.player.bombasPuestas.length - 1; k >= 0; k--){
+                    
+            const bomba = this.player.bombasPuestas[k];
+            const left = Math.floor(bomba.left/ 50);
+            const top = Math.floor(bomba.top / 50);
+            // ALCANCE LLAMAS ====================================================================================================
+            for (let d = 1; d <= bomba.distancia; d++){
+                if(this.map[top][left - d] === '1'){
+                    bomba.llamaLeft = d - 1;
+                    break;
+                }
+                bomba.llamaLeft  = d
+            }
+            for (let d = 1; d <= bomba.distancia; d++){
+                if(this.map[top][left + d] === '1'){
+                    bomba.llamaRight = d - 1;
+                    break;
+                }
+                bomba.llamaRight  = d
+            }
+            for (let d = 1; d <= bomba.distancia; d++){
+                if(this.map[top - d][left] === '1'){
+                    bomba.llamaTop = d - 1;
+                    break;
+                }
+                bomba.llamaTop  = d
+            }
+            for (let d = 1; d <= bomba.distancia; d++){ 
+                if(this.map[top + d][left] === '1'){
+                    bomba.llamaBottom = d - 1;
+                    break;
+                }
+                bomba.llamaBottom  = d
             }
         }
     }
@@ -473,6 +455,7 @@ class GameData{
         this.checkCollisionExplosion();
         this.checkCollisionBombs();
         this.checkCollisionEnemyPlayer();
+        this.checkExplosionDistance();
 
         this.enemies.forEach((enemy)=>{
             enemy.move();

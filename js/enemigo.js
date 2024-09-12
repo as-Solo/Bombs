@@ -165,6 +165,7 @@ class Enemy{
             this.element.style.display = "none"
             this.element.remove();
         },1200)
+        this.isAlive = false;
     }
     // moveRigth(){};
     // moveLeft(){};

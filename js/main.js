@@ -8,7 +8,7 @@ let levelIndex = 0;
             '1010101010101e101',
             '10002000002000201',
             '10101010101010101',
-            '1000200eS02222201',
+            '10002000S02222201',
             '10101010101010101',
             '100e2000002000201',
             '10101010101010101',
@@ -18,13 +18,13 @@ let levelIndex = 0;
         [   '11111111111111111',
             '10000000000000001',
             '1000000000000e001',
-            '10020ee0000002001',
-            '1e00000e000000001',
+            '1002ee0200002001',
+            '1e00000e002000001',
             '100000000000e0001',
-            '1000e000000e00001',
+            '1000e020202e00001',
             '1002000000e002001',
             '100000e00000e0001',
-            '100000e000000S001',
+            '102000e000000S001',
             '11111111111111111'   ],
 
         [   '11111111111111111',
@@ -177,10 +177,13 @@ window.onload = function () {
                 // console.log(game.muros)
                 // console.log(game.player)
                 // console.log(localStorage.getItem('Solo'))
+                // console.log(game.player.bombasPuestas[0].llamas)
 
-                console.log("Limpiando hitorial")
-                localStorage.clear();  // LIMPIA EL STORAGE
-                game.gameIsOver = true;
+                // console.log("Limpiando hitorial")
+                // localStorage.clear();  // LIMPIA EL STORAGE
+                // localStorage.clear();  // LIMPIA EL STORAGE
+
+                // game.gameIsOver = true;
                 
                 break;
             }

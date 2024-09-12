@@ -36,7 +36,7 @@ class Bomberman{
         this.inmune = false;
 
         this.numBombs = 3;
-        this.distancia = 1;
+        this.distancia = 2;
         // this.demolition = false;
         this.bombasPuestas = [];
         
