@@ -130,13 +130,6 @@ window.onload = function () {
       });
 
     function startGame() {
-        vidas = 3;
-        bombsUsed = 0;
-        enemiesKill = 0;
-        timeScore = 0;
-        tittleScore = 0;
-        killScore = 0
-        totalScore = 0;
         game = null;
         game = new GameData();
         game.start();
