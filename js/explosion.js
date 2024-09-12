@@ -62,16 +62,16 @@ class Explosion{
         }, 70)
     }
 
-    didCollide(left, right, top, bottom, obstacle){
-        const playerRect = this.element.getBoundingClientRect();
-        const obstacleRect = obstacle.getBoundingClientRect();
+    didCollide(obstacle){
        
-        if (playerRect.left - left < obstacleRect.right &&
-            playerRect.right + right > obstacleRect.left &&
-            playerRect.top - top < obstacleRect.bottom &&
-            playerRect.bottom + bottom > obstacleRect.top){
-            return true;
-        }
+        if (
+            this.left < obstacle.left + obstacle.w &&
+            this.left + this.w > obstacle.left &&
+            this.top < obstacle.top + obstacle.h &&
+            this.h + this.top > obstacle.top
+          ){
+            return true
+          }
         else {
             return false;
         }

@@ -16,15 +16,15 @@ let levelIndex = 0;
             '11111111111111111'    ],
 
         [   '11111111111111111',
-            '10000000000000001',
-            '1000000000000e001',
-            '1002ee0200002001',
-            '1e00000e002000001',
-            '100000000000e0001',
-            '1000e020202e00001',
+            '10202222220000001',
+            '1010101210101e101',
+            '10020e020e0020001',
+            '10101010201012121',
+            '120000222200e2021',
+            '12101012121e10101',
             '1002000000e002001',
-            '100000e00000e0001',
-            '102000e000000S001',
+            '10101010121212101',
+            '102000e22220s2201',
             '11111111111111111'   ],
 
         [   '11111111111111111',
@@ -174,14 +174,15 @@ window.onload = function () {
                 // console.log(game.player.bombasPuestas[0].explotar)
                 // console.log(game.enemies)
                 // console.log(game.indexMurosDel)
-                // console.log(game.muros)
+                console.log(game.muros)
                 // console.log(game.player)
                 // console.log(localStorage.getItem('Solo'))
                 // console.log(game.player.bombasPuestas[0].llamas)
-
-                // console.log("Limpiando hitorial")
-                // localStorage.clear();  // LIMPIA EL STORAGE
-                // localStorage.clear();  // LIMPIA EL STORAGE
+                // game.muros.forEach((muro)=>{console.log(muro.element)})
+                
+                console.log("Limpiando hitorial")
+                localStorage.clear();  // LIMPIA EL STORAGE
+                localStorage.clear();  // LIMPIA EL STORAGE
 
                 // game.gameIsOver = true;
                 

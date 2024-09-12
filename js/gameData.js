@@ -186,31 +186,34 @@ class GameData{
             // LLAMAS  ===============================================================
             for (let x = bomba.llamas.length - 1; x >= 0; x--){
                 const llama = bomba.llamas[x];
-                // console.log(llama)
                 // MUROS ===========================================================================================================
                 for (let l = this.muros.length -1; l >=0 ; l--){
                     const obstacle = this.muros[l]
-                    if((obstacle instanceof Ladrillo) && (llama.didCollide(0, 0, 0, 0, obstacle.element))){
+                    if((obstacle instanceof Ladrillo) && (llama.didCollide(obstacle))){
                         this.indexMurosDel.add(l);
+                        // console.log(obstacle.element)
+                        // console.log("Indice del obastacle " + l)
+                        // console.log(llama.element)
                         if (obstacle.isBonus){
                             this.puerta = new Puerta(obstacle.left, obstacle.top, this.gameBoard)
                         }
                         setTimeout(()=>{
-                            obstacle.element.remove()
                             obstacle.element.style.display = "none"
+                            obstacle.element.remove()
                         }, 500)
                     }
                 }
+            this.removeWalls();
                 // ENEMIGOS ========================================================================================================
                 for (let l = this.enemies.length - 1; l >= 0; l--){
                     const enemigo = this.enemies[l]
-                    if(enemigo.isAlive && bomba.explotar && llama.didCollide(0, 0, 0, 0, enemigo.element)){
+                    if(bomba.explotar && llama.didCollide(enemigo)){ //enemigo.isAlive &&
                         this.indexEnemiesDel.add(l);            
                         enemigo.dies()
                     }
                 }
                 // PLAYER =======================================================================================================
-                if(!this.player.inmune && bomba.explotar && llama.didCollide(0, 0, 0, 0, this.player.element)){
+                if(!this.player.inmune && bomba.explotar && llama.didCollide(this.player)){
                     this.player.dies(this.initialPosition[0], this.initialPosition[1])    
                 }
             }
@@ -468,29 +471,11 @@ class GameData{
                 // seria que estuviese en las mismas coordenadas, pero con un margen de error
             }
         }
-        if (this.crono.time <=0 || this.player.vidas <= 0){
+        if (this.crono.time <=0 || this.player.vidas === 0){ // <= 0 OJO
             this.numVidas.innerText = this.player.vidas
             this.gameIsOver = true
         }
-        // else if(this.crono.time === 10){
-        //     this.audioCountdown.play()
-        //     this.audioGame.volume = .1
-        //     let count = 0;
-        //     let countId = setInterval(()=>{
-        //         count++
-        //         if (count % 2 === 0){
-        //             this.minutos.style.color  = "red";
-        //             this.segundos.style.color = "red"
-        //         }
-        //         else{
-        //             this.segundos.style.color = "white"
-        //             this.minutos.style.color = "white"
-        //         }
-        //         if (count >=20){
-        //             clearInterval(countId)
-        //         }
-        //     }, 500)
-        // }   // no me ha terminado de convencer
+    
     };
     updateScores(){
         this.textoBombas.innerText = this.bombsUsed;

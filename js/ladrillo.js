@@ -2,8 +2,8 @@ class Ladrillo{
     constructor(left, top, screen, isBonus = false, bonusType = null){
         this.left = left;
         this.top = top;
-        this.width = 50;
-        this.height = 50;
+        this.w = 50;
+        this.h = 50;
         this.isBonus = isBonus;
         this.bonusType = bonusType;
         this.screen = screen;
@@ -14,7 +14,7 @@ class Ladrillo{
         this.element.style.top = `${this.top}px`;
         this.element.style.left = `${this.left}px`;
         this.element.style.width = `${this.width}px`;
-        this.element.style.height = `${50}px`;
+        this.element.style.height = `${this.height}px`;
         this.screen.append(this.element)
     }
 }

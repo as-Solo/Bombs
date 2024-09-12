@@ -85,6 +85,9 @@ class Bomba{
                 this.llamas.push(exploBottom)
             }
         }
+        // this.llamas.forEach((llama)=>{
+        //     console.log(`left ${llama.left} - top ${llama.top}`)
+        // })
         this.audioExplosion.play()
         let sec = 0
         const bombId = setInterval(()=>{
@@ -92,7 +95,7 @@ class Bomba{
             sec++;
             if (sec >= 15){
                 this.element.style.display = "none"
-                this.llamas.forEach((llama)=>{    // OJO
+                this.llamas.forEach((llama)=>{
                     llama.element.remove()
                 })
                 this.llamas = []
