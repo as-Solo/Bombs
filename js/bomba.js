@@ -61,31 +61,24 @@ class Bomba{
             for (let i = 1; i<= this.llamaLeft; i++){
                 let exploLeft = new Explosion(this.screen, (this.left - 50 * i), this.top, "left", this.distancia, i);
                 this.llamas.push(exploLeft)
-                console.log(this.distancia, i);
-
             }
         }
         if (this.llamaRight){
             for (let i = 1; i<= this.llamaRight; i++){
                 let exploRight = new Explosion(this.screen, (this.left + 50 * i), this.top, "right", this.distancia, i);
                 this.llamas.push(exploRight)
-                console.log(this.distancia, i);
-
             }
         }
         if (this.llamaTop){
             for (let i = 1; i<= this.llamaTop; i++){
                 let exploTop = new Explosion(this.screen, this.left, (this.top  - 50 * i), "top", this.distancia, i);
                 this.llamas.push(exploTop)
-                console.log(this.distancia, i);
-
             }
         }
         if (this.llamaBottom){
             for (let i = 1; i<= this.llamaBottom; i++){
                 let exploBottom = new Explosion(this.screen, this.left, (this.top  + 50 * i), "bottom", this.distancia, i);
                 this.llamas.push(exploBottom)
-                console.log(this.distancia, i);
             }
         }
 

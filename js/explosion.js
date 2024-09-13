@@ -46,6 +46,7 @@ class Explosion{
                 this.element.style.display = "block"
             }
             if (sec > 4 && sec < 15){
+                this.element.src = `${this.pathEnd}${this.sprite[sec]}`; //!
                 this.element.style.display = "block"
                 if (this.distance !== this.end){
                     this.element.src = `${this.pathMid}${this.sprite[sec]}`;
