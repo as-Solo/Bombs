@@ -166,9 +166,5 @@ class Enemy{
         },1200)
         this.isAlive = false;
     }
-    // moveRigth(){};
-    // moveLeft(){};
-    // moveUp(){};
-    // moveDown(){};
     stop(){};
 }

@@ -60,34 +60,28 @@ class Bomba{
         if (this.llamaLeft){
             for (let i = 1; i<= this.llamaLeft; i++){
                 let exploLeft = new Explosion(this.screen, (this.left - 50 * i), this.top, "left", this.distancia, i);
-                // console.log(this.llamaLeft)
                 this.llamas.push(exploLeft)
             }
         }
         if (this.llamaRight){
             for (let i = 1; i<= this.llamaRight; i++){
                 let exploRight = new Explosion(this.screen, (this.left + 50 * i), this.top, "right", this.distancia, i);
-                // console.log(this.llamaRight)
                 this.llamas.push(exploRight)
             }
         }
         if (this.llamaTop){
             for (let i = 1; i<= this.llamaTop; i++){
                 let exploTop = new Explosion(this.screen, this.left, (this.top  - 50 * i), "top", this.distancia, i);
-                // console.log(this.llamaTop)
                 this.llamas.push(exploTop)
             }
         }
         if (this.llamaBottom){
             for (let i = 1; i<= this.llamaBottom; i++){
                 let exploBottom = new Explosion(this.screen, this.left, (this.top  + 50 * i), "bottom", this.distancia, i);
-                // console.log(this.llamaBottom)
                 this.llamas.push(exploBottom)
             }
         }
-        // this.llamas.forEach((llama)=>{
-        //     console.log(`left ${llama.left} - top ${llama.top}`)
-        // })
+
         this.audioExplosion.play()
         let sec = 0
         const bombId = setInterval(()=>{

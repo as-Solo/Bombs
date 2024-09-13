@@ -2,7 +2,8 @@
 
 ![Game Screenshot](./images/faldon.jpg)
 
-**Bombs** es un proyecto inspirado en el clásico **Bomberman**, desarrollado completamente en JavaScript, HTML5 y CSS3. Este juego de navegador ofrece una experiencia retro, mezclando lo mejor de la nostalgia de los videojuegos clásicos con las capacidades modernas de desarrollo web. ¡Destruye muros, esquiva enemigos, y alcanza la victoria!
+**Bombs** es un proyecto inspirado en el clásico **Bomberman**, desarrollado completamente en JavaScript, HTML5 y CSS3. Este juego de navegador ofrece una experiencia retro, mezclando lo mejor de la nostalgia de los videojuegos clásicos con las capacidades modernas de desarrollo web. ¡Destruye muros, esquiva enemigos, y alcanza la victoria! -->
+[Juega aquí](https://as-solo.github.io/Bombs/)
 
 ### Sobre el Desarrollo
 

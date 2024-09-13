@@ -7,7 +7,7 @@ class Bomberman{
         this.top = top;
         this.w = 50;
         this.h = 50;
-        // this.isColide = false; //deprecated
+
         this.canMoveLeft = true;
         this.canMoveRight = true;
         this.canMoveUp = true;
@@ -37,47 +37,38 @@ class Bomberman{
 
         this.numBombs = 3;
         this.distancia = 2;
-        // this.demolition = false;
+        this.demolition = false;
         this.bombasPuestas = [];
         
         this.animationID = null;
         this.standId = null;
         this.animation()
-        // metele un is moving para que cada vez que vaya a moverse, si es falso lance
-        // this.animation y lo ponga a true y que la funcion stop lo ponga a flase y lance otro bucle
-        // this.animation tiene que hacer clear del bucle standId (llamado por la funcion move())
     }
 
     move(){
         this.left += this.speed * this.leftDirection;
         this.top += this.speed * this.topDirection;
         this.updatePosition();
-        // console.log("alto  " + this.top)
     };
 
     animation(){
 
         let i = 0;
         this.animationId = setInterval(()=>{
-            // if (this.leftDirection + this. topDirection === 0){
-            //     this.path = "./images/player/right/"
-            // }
-            // else{
-                if (this.topDirection === 1){
-                    this.path = "./images/player/bottom/"
-                }
-                else if (this.topDirection === -1){
-                    this.path = "./images/player/top/"
-                }
-                else if (this.leftDirection === -1){
-                    this.path = "./images/player/left/"
-                }
-                else if (this.leftDirection === 1){
-                    this.path = "./images/player/right/"
-                }
-                i += 0.2;
-                this.element.src = `${this.path}${this.sprite[Math.floor(i) % 9]}`;
-            // }
+            if (this.topDirection === 1){
+                this.path = "./images/player/bottom/"
+            }
+            else if (this.topDirection === -1){
+                this.path = "./images/player/top/"
+            }
+            else if (this.leftDirection === -1){
+                this.path = "./images/player/left/"
+            }
+            else if (this.leftDirection === 1){
+                this.path = "./images/player/right/"
+            }
+            i += 0.2;
+            this.element.src = `${this.path}${this.sprite[Math.floor(i) % 9]}`;
         }, 1000/60)
     };
     
@@ -126,13 +117,7 @@ class Bomberman{
         }
         this.left = resultado;
     }
-    // moveLeft(){};
-    // moveUp(){};
-    // moveDown(){};
-    // stop(){
-    //     this.path = "./images/player/stand/"
-    //     this.standId = setInterval()
-    // }; // Creo que deprecated
+
     updatePosition(){
         this.element.style.left = `${this.left}px`;
         this.element.style.top = `${this.top}px`;   
@@ -177,11 +162,9 @@ class Bomberman{
                     playerRect.top < obstacleRect.bottom &&
                     playerRect.bottom > obstacleRect.top){
                     respuesta = respuesta && false;
-                    // console.log("Encima")
                 }
                 else {
                     respuesta = respuesta && true;
-                    // console.log("no superpuesta")
                 }
             })
         }

@@ -69,7 +69,6 @@ window.onload = function () {
                 if (localStorage.getItem(jugador.name)){
                     console.log("existe")
                     jugador.puntuaciones = JSON.parse(localStorage.getItem(jugador.name))
-                    // localStorage.setItem(jugador.name, JSON.stringify([]))  // resetear jugador
                     console.log(jugador)
                 }
                 else{
@@ -89,7 +88,6 @@ window.onload = function () {
                 if (localStorage.getItem(jugador.name)){
                     console.log("existe")
                     jugador.puntuaciones = JSON.parse(localStorage.getItem(jugador.name))
-                    // localStorage.setItem(jugador.name, JSON.stringify([]))  // resetear jugador
                     console.log(jugador)
                 }
                 else{
@@ -168,36 +166,17 @@ window.onload = function () {
                 game.player.topDirection = 1;
                 break;
             case " ":
-                // game.player.ajustarLeft()
                 game.player.ponerBomba();
-                // console.log(game.player.bombasPuestas)
-                // console.log(game.player.bombasPuestas[0].explotar)q
                 break;
             case "q":
-                // game.player.ajustarLeft()
-                // let explosion = new Explosion(game.gameBoard, 150, 100);
-                // console.log(explosion)
-                // console.log(game.player.bombasPuestas[0].isCollide)
-                // console.log(game.player.bombasPuestas[0].isRemovable)
-                // console.log(game.player.bombasPuestas[0].explotar)
-                // console.log(game.enemies)
-                // console.log(game.indexMurosDel)
-                console.log(game.muros)
-                // console.log(game.player)
-                // console.log(localStorage.getItem('Solo'))
-                // console.log(game.player.bombasPuestas[0].llamas)
-                // game.muros.forEach((muro)=>{console.log(muro.element)})
-                
+
                 console.log("Limpiando hitorial")
                 localStorage.clear();  // LIMPIA EL STORAGE
-                localStorage.clear();  // LIMPIA EL STORAGE
-
                 // game.gameIsOver = true;
                 
                 break;
             }
         }
-        // console.log('-' + event.key + '-')
     }
     function soltarKey(event) {
         const key = event.key;
@@ -213,14 +192,10 @@ window.onload = function () {
             switch (key) {
             case "ArrowLeft":
             case "ArrowRight":
-                // console.log("Soltando L/R")
-                // game.player.ajustarAlto()
                 game.player.leftDirection = 0;
                 break;
             case "ArrowUp":
             case "ArrowDown":
-                // console.log("Soltando T/B")
-                // game.player.ajustarLeft()
                 game.player.topDirection = 0;
                 break;
             }

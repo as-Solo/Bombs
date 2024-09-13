@@ -20,7 +20,7 @@ class Explosion{
         this.element.style.height = `${this.h}px`;
         this.element.style.left = `${this.left}px`;
         this.element.style.top = `${this.top}px`;
-        // this.element.style.src = this.sprite[0];
+
         if (imgSrc == "bottom"){
             this.element.style.transform = "rotate(90deg) scaleY(-1)"
         }

@@ -46,23 +46,14 @@ class GameData{
         this.textoTimeScoreSum = document.querySelector("#time-score-sum");
         this.textoTotalScore = document.querySelector("#total-score");
         this.textoRanking = document.querySelector(".texto-ranking");
-        // this.textoMaxPuntos = document.querySelector(".puntitos");
-        // this.textoName = document.querySelector(".nombre-jugador");
-        
-        // this.enemiesKill = 0;// deprecated
-        // this.titlePoints = 550; //deprecated
-        // this.bombsUsed = 0; // deprecated
-        // this.pointsTime = 0; // deprecated
+
         this.pointsEchKill = 300;
         this.wallDestroyed = 0;
-        //tiempo de game - tiempo transcurrido de crono * 150
-        // ya pensaremos algo para el numero de bombas, los titulos y sus puntuaciones
         //[piromano, francotirador, activista, manco]
 
         this.width = 1100;
         this.height = 750;
-        // this.enemiesPos = [['x', 'y']]; //deprecated
-        // this.puerta = ['x', 'y']; // deprecated
+
         this.numEnemies = 0;
         this.enemies = [];
         this.indexEnemiesDel = new Set();
@@ -75,7 +66,7 @@ class GameData{
         this.elementosColisionables = [];
 
         this.tiempo = 342; //342
-        // this.scores = 0 // deprecated
+
         this.lives = 3;
 
         this.gameIsOver = false;
@@ -160,14 +151,13 @@ class GameData{
                         enemigo.leftDirection = 1;
                     }
                     else{
-                        // const randomChoice = Math.floor(Math.random()*2)
-                        enemigo.topDirection = 1 //- randomChoice;
-                        // enemigo.leftDirection = randomChoice;
+                        const randomChoice = Math.floor(Math.random()*2)
+                        enemigo.topDirection = 1 - randomChoice;
+                        enemigo.leftDirection = randomChoice;
                     }
                     enemigo.restore()
                     enemigo.isInicio = false;    
                 }
-
                 if (enemigo.didCollide(obstacle)){
                     console.log("")
                     enemigo.leftDirection *= -1;
@@ -191,9 +181,6 @@ class GameData{
                     const obstacle = this.muros[l]
                     if((obstacle instanceof Ladrillo) && (llama.didCollide(obstacle))){
                         this.indexMurosDel.add(l);
-                        // console.log(obstacle.element)
-                        // console.log("Indice del obastacle " + l)
-                        // console.log(llama.element)
                         if (obstacle.isBonus){
                             this.puerta = new Puerta(obstacle.left, obstacle.top, this.gameBoard)
                         }
@@ -266,7 +253,7 @@ class GameData{
                 this.audioMuerte.play()
                 this.player.dies(this.initialPosition[0], this.initialPosition[1])
                 console.log("Ay!")
-            }//sacar de este bucle
+            }
         }
     }
     // bombs vs jugador. bomb vs enemigo
@@ -347,7 +334,6 @@ class GameData{
                 }
                 else if (this.map[i][j] === 'e'){
                     let randomDirection = (Math.floor(Math.random()* 2))
-                    // console.log(randomDirection)
                     const enemy = new Enemy(j*50, i*50, this.gameBoard, randomDirection, (randomDirection  -1))
                     this.enemies.push(enemy)
                     this.numEnemies++;
@@ -425,16 +411,11 @@ class GameData{
     removeEnemies(){
         if (this.indexEnemiesDel.size > 0){
             for (let index of this.indexEnemiesDel){
-                // console.log(index)
                 this.enemies.splice(index, 1)
                 this.numEnemies--;
                 enemiesKill++;
             }
             this.indexEnemiesDel.clear();
-            // if (this.enemies.length === 0){
-            //     this.removeWalls();
-                // this.enemies.push(new Enemy(-50, -50, this.gameBoard,  0, 0))
-            // }
         }
     }
     update(){
@@ -444,7 +425,6 @@ class GameData{
         this.segundos.innerText = this.crono.seconds
         this.numBombs.innerText = this.player.numBombs - this.player.bombasPuestas.length
         if (this.puerta){
-            // console.log(this.numEnemies);
             if(this.numEnemies === 0){
                 this.puerta.isOpen = true
             }
@@ -469,11 +449,9 @@ class GameData{
         if(this.puerta){
             if (this.player.didCollide(this.puerta) && this.puerta.isCollide){
                 this.nextStage = true;
-                // hacerte una funcion para que checkee si esta dentro de la puerta
-                // seria que estuviese en las mismas coordenadas, pero con un margen de error
             }
         }
-        if (this.crono.time <=0 || vidas === 0){ // <= 0 OJO
+        if (this.crono.time <=0 || vidas === 0){
             this.numVidas.innerText = vidas
             this.gameIsOver = true
         }
@@ -485,7 +463,6 @@ class GameData{
         this.textoTime.innerText = `${this.crono.minutesT}:${this.crono.secondsT}`;
         this.textoKillScore.innerText = `${enemiesKill} x ${this.pointsEchKill}`;
         this.textoKillScoreSum.innerText = `${enemiesKill * this.pointsEchKill}pts.`;
-        // el tiempo y la puntuacion por titulo se añade porque es independiente de cada nivel
         if (this.gameIsOver && !this.nextStage){
             timeScore += 0;
             this.textoTitleScore.innerText = `'Maancooo!'`;
@@ -499,7 +476,6 @@ class GameData{
         this.textoTimeScoreSum.innerText = `${timeScore}pts.`;
         this.textoTitleScoreSum.innerText = `${tittleScore}pts.`;
         totalScore += timeScore + (enemiesKill * this.pointsEchKill) + tittleScore;
-        // timeScore + (enemiesKill * this.pointsEchKill) + tittleScore // DEPRECATEDISIMO
         this.textoTotalScore.innerText = `${totalScore}pts.`
         if (jugador != null){
             if (!jugador.puntuaciones.includes(totalScore)){

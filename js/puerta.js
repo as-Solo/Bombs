@@ -25,7 +25,7 @@ class Puerta{
 
         this.openId = null;
         this.waitId = null;
-        // this.open()
+
         this.audioOpenDoor = document.createElement('audio');
         this.audioOpenDoor.src = "./audio/OpenDoor.mp3";
     }
@@ -51,6 +51,6 @@ class Puerta{
     }
     
     close(){
-        //ojo que aqui tienes que cuadrarlo con la animacion de desaparicion de player
+        //todo Aqui tienes que cuadrarlo con la animacion de desaparicion de player
     }
 }
